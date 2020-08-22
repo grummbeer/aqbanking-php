@@ -11,11 +11,11 @@ class RenderContextFileToXMLCommand extends AbstractCommand
      * @return \DOMDocument
      * @throws \RuntimeException
      */
-    public function execute(ContextFile $contextFile)
+    public function execute(ContextFile $contextFile, bool $returnSimpleXml = false)
     {
         $shellCommand =
             $this->pathToAqBankingCLIBinary
-            . ' listtrans'
+            . ' export'
             . ' --ctxfile=' . escapeshellcmd($contextFile->getPath())
             . ' --exporter=xmldb';
 
@@ -26,6 +26,10 @@ class RenderContextFileToXMLCommand extends AbstractCommand
                 'AqBanking exited with errors: ' . PHP_EOL
                 . implode(PHP_EOL, $result->getErrors())
             );
+        }
+
+        if($returnSimpleXml) {
+            return new \SimpleXMLElement(implode(PHP_EOL, $result->getOutput()));
         }
 
         $domDocument = new \DOMDocument();

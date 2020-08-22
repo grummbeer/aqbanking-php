@@ -7,7 +7,7 @@ use AqBanking\Command\ShellCommandExecutor\ResultAnalyzer;
 use AqBanking\PinFile\PinFileInterface as PinFile;
 use AqBanking\ExistingUser;
 
-class GetSysIDCommand extends AbstractCommand
+class GetAccountsCommand extends AbstractCommand
 {
     /**
      * @param User $user
@@ -18,10 +18,10 @@ class GetSysIDCommand extends AbstractCommand
     {
         $shellCommand =
             $this->pathToAqHBCIToolBinary
-            . ' --pinfile=' . escapeshellarg($pinFile->getPath())
+            . ' --pinfile=' . escapeshellcmd($pinFile->getPath())
             . ' --noninteractive'
             . ' --acceptvalidcerts'
-            . ' getsysid'
+            . ' getaccounts'
             . ' --user=' . $user->getUniqueUserId()
         ;
 

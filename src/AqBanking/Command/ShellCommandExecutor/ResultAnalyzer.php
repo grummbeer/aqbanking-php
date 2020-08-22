@@ -14,8 +14,24 @@ class ResultAnalyzer
         '/Bank data for KtoBlzCheck not found/',
         '/Executing Jobs: Started\./',
         '/A TLS packet with unexpected length was received\./',
-        '/Bad IBAN \(country code not in upper case\)/',       
+        // The following happens when using flag FLAG_SSL_QUIRK_IGNORE_PREMATURE_CLOSE for some banks
+        '/Detected premature disconnect by server \(violates specs!\), ignoring\./',
+        '/The TLS connection was non-properly terminated./',
+        '/Bad IBAN \(country code not in upper case\)/',
+        '/Adding flags/',
+        '/You may see some messages like "Job not supported with this account" below, that\'s are okay, please ignore/',
+        '/not supported with this account/',
+        '/Account exists, modifying/',
+        '/Handling user/',
+        '/Writing account spec/',
         '/===== Executing Jobs =====/',
+        '/===== Getting Certificate =====/',
+        '/Handling user/',
+        '/RXH-encrypting message/',
+        '/No AqBanking config folder found at/',
+        '/There is no old settings folder, need initial setup/',
+        '/Account is new, adding/',
+        '/^  .*$/', // everything starting with a space belongs to a previous message and is not an error (hopefully)
     );
 
     /**
@@ -27,7 +43,7 @@ class ResultAnalyzer
         if ($result->getReturnVar() !== 0) {
             return true;
         }
-        if ($this->resultHasErrors($result)) {
+        if ($error = $this->resultHasErrors($result)) {
             return true;
         }
         return false;

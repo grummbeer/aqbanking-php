@@ -6,9 +6,14 @@ use AqBanking\Command\ShellCommandExecutor\Result;
 
 class ShellCommandExecutor
 {
+    const ERROR_REPORTING = 'error';
+
     public function execute($shellCommand)
     {
-        $shellCommand = "LANG=C " . $shellCommand;
+        $shellCommand = 'AQBANKING_LOGLEVEL=' . self::ERROR_REPORTING .
+            ' GWEN_LOGLEVEL=' . self::ERROR_REPORTING .
+            ' AQHBCI_LOGLEVEL=' . self::ERROR_REPORTING .
+            ' LANG=C ' . $shellCommand;
         $output = array();
         $returnVar = null;
         $tempFile = tempnam(sys_get_temp_dir(), 'aqb-');

@@ -62,13 +62,23 @@ class ContextXmlRenderer
 
             $value = $this->renderMoneyElement($this->xPath->query('value', $transactionNode)->item(0));
 
+            $primaNota = $this->renderMultiLineElement(
+                $this->xPath->query('primanota/value', $transactionNode)
+            );
+
+            $customerRef = $this->renderMultiLineElement(
+                $this->xPath->query('customerReference/value', $transactionNode)
+            );
+
             $transactions[] = new Transaction(
                 new Account(new BankCode($localBankCode), $localAccountNumber, $localName),
                 new Account(new BankCode($remoteBankCode), $remoteAccountNumber, $remoteName),
                 $purpose,
                 $valutaDate,
                 $date,
-                $value
+                $value,
+                $primaNota,
+                $customerRef
             );
         }
 
@@ -76,15 +86,25 @@ class ContextXmlRenderer
     }
 
     /**
-     * @return Money
+     * @return Balance
      */
-    public function getBalance()
+    public function getBalances()
     {
-        $statusNode = $this->domDocument->getElementsByTagName('bookedBalance')->item(0);
+        $balanceNodes = $this->domDocument->getElementsByTagName('balance');
+        $balances = array();
 
-        return $this->renderMoneyElement(
-            $this->xPath->query('value', $statusNode)->item(0)
-        );
+        /**
+         * @var DOMElement $balanceNode
+         */
+        foreach ($balanceNodes as $balanceNode) {
+            $date = $this->renderDateElement($this->xPath->query('date', $balanceNode)->item(0));
+            $value = $this->renderMoneyElement($this->xPath->query('value', $balanceNode)->item(0));
+            $type = $this->renderSimpleTextElement($this->xPath->query('type', $balanceNode));
+
+            $balances[] = new Balance($date, $value, $type);
+        }
+
+        return $balances;
     }
 
     /**
@@ -114,31 +134,13 @@ class ContextXmlRenderer
      */
     private function renderDateElement(\DOMNode $node)
     {
-        $utcFlagElement = $this->xPath->query('inUtc', $node)->item(0);
-        if ('1' !== trim($utcFlagElement->nodeValue)) {
-            throw new \RuntimeException('Unexpected input');
-        }
-
-        $dayElement = $this->xPath->query('date/day/value', $node)->item(0);
-        $monthElement = $this->xPath->query('date/month/value', $node)->item(0);
-        $yearElement = $this->xPath->query('date/year/value', $node)->item(0);
-
-        $hourElement = $this->xPath->query('time/hour/value', $node)->item(0);
-        $minuteElement = $this->xPath->query('time/min/value', $node)->item(0);
-        $secondElement = $this->xPath->query('time/sec/value', $node)->item(0);
-
-        $date = new \DateTime('today', new \DateTimeZone('UTC'));
-        $date->setDate(
-            (int)$yearElement->nodeValue,
-            (int)$monthElement->nodeValue,
-            (int)$dayElement->nodeValue
+        $dateElement = $this->xPath->query('value', $node)->item(0);
+        $date = \DateTime::createFromFormat(
+            'Ymd',
+            $dateElement->nodeValue,
+            new \DateTimeZone('UTC')
         );
-        $date->setTime(
-            (int)$hourElement->nodeValue,
-            (int)$minuteElement->nodeValue,
-            (int)$secondElement->nodeValue
-        );
-
+        $date->setTime(0, 0, 0);
         return $date;
     }
 
@@ -149,9 +151,8 @@ class ContextXmlRenderer
      */
     private function renderMoneyElement(\DOMNode $node)
     {
-        $valueString = $this->renderSimpleTextElement($this->xPath->query('value/value', $node));
-        $currencyString = $this->renderSimpleTextElement($this->xPath->query('currency/value', $node));
-
+        $value = $this->renderSimpleTextElement($this->xPath->query('value', $node));
+        list($valueString, $currencyString) = explode(':', $value);
         return $this->moneyElementRenderer->render($valueString, $currencyString);
     }
 
