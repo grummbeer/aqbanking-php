@@ -28,6 +28,9 @@ class ResultAnalyzer
         '/===== Getting Certificate =====/',
         '/Handling user/',
         '/RXH-encrypting message/',
+        '/No AqBanking config folder found at/',
+        '/There is no old settings folder, need initial setup/',
+        '/Account is new, adding/',
         '/^  .*$/', // everything starting with a space belongs to a previous message and is not an error (hopefully)
     );
 
