@@ -13,6 +13,7 @@ class AddUserFlagsCommand extends AbstractCommand
     const FLAG_SSL_QUIRK_IGNORE_PREMATURE_CLOSE = 'tlsIgnPrematureClose';
 
     /**
+     * @deperacted no longer supported in AqBanking 6
      * @param User $user
      * @throws AddUserCommand\UserAlreadyExistsException
      * @throws ShellCommandExecutor\DefectiveResultException
