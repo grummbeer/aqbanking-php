@@ -18,6 +18,10 @@ class MoneyElementRenderer
     public function render($value, $currencyString)
     {
         try {
+            // Default to EUR currency if no currency is supplied
+            if ($currencyString == '') {
+                $currencyString = 'EUR';
+            }
             $currency = new Currency($currencyString);
         } catch (UnknownCurrencyException $e) {
             throw new RuntimeException("Unknown currency input '$currencyString'");
