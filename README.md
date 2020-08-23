@@ -5,6 +5,8 @@ A wrapper to use AqBanking CLI from a PHP context
 
 [![Build Status](https://travis-ci.org/Mestrona/aqbanking-php.svg?branch=master)](https://travis-ci.org/Mestrona/aqbanking-php/)
 
+Tested with AqBanking 6 which supports PSD2 conform banking using HBCI / FinTS 3.
+
 Installation
 ------------
 
@@ -13,6 +15,11 @@ Install the library using [composer][1]:
     composer require mestrona/aqbanking-php
     
 [1]: http://getcomposer.org/
+
+see also
+--------
+
+https://github.com/mestrona/mbank
 
 Credits
 -------
