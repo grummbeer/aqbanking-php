@@ -152,7 +152,9 @@ class ContextXmlRenderer
     private function renderMoneyElement(\DOMNode $node)
     {
         $value = $this->renderSimpleTextElement($this->xPath->query('value', $node));
-        list($valueString, $currencyString) = explode(':', $value);
+        $pair = explode(':', $value);
+        $valueString = $pair[0];
+        $currencyString = empty($pair[1]) ? 'EUR' : $pair[1];
         return $this->moneyElementRenderer->render($valueString, $currencyString);
     }
 
