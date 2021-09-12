@@ -10,7 +10,7 @@ Tested with AqBanking 6 which supports PSD2 conform banking using HBCI / FinTS 3
 Installation
 ------------
 
-Install the library using [composer][1]:
+Install the library using [composer version 2][1]:
 
     composer require mestrona/aqbanking-php
     
