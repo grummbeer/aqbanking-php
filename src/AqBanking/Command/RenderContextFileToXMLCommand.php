@@ -17,7 +17,6 @@ class RenderContextFileToXMLCommand extends AbstractCommand
             $this->pathToAqBankingCLIBinary
             . ' export'
             . ' --ctxfile=' . escapeshellcmd($contextFile->getPath())
-            . ' --transactiontype=statement' // we are only interested in statements, not notedStatement and so on
             . ' --exporter=xmldb';
 
         $result = $this->getShellCommandExecutor()->execute($shellCommand);
