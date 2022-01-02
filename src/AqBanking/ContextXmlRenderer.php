@@ -70,9 +70,14 @@ class ContextXmlRenderer
                 $this->xPath->query('customerReference/value', $transactionNode)
             );
 
+            $type = $this->renderMultiLineElement(
+                $this->xPath->query('type', $transactionNode)
+            );
+
             $transactions[] = new Transaction(
                 new Account(new BankCode($localBankCode), $localAccountNumber, $localName),
                 new Account(new BankCode($remoteBankCode), $remoteAccountNumber, $remoteName),
+                $type,
                 $purpose,
                 $valutaDate,
                 $date,
