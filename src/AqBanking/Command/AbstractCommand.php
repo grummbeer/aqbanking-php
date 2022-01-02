@@ -44,6 +44,14 @@ abstract class AbstractCommand
         return $this->shellCommandExecutor;
     }
 
+    public function isRunning()
+    {
+        if (!is_null($this->shellCommandExecutor) && $this->shellCommandExecutor->isRunning()) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * @param string $binaryPath
      */
