@@ -3,7 +3,11 @@
 namespace Tests;
 
 use Money\Money;
+use AqBanking\Account;
+use AqBanking\BankCode;
+use AqBanking\Transaction;
 use PHPUnit\Framework\TestCase;
+use AqBanking\ContextXmlRenderer;
 
 class ContextXmlRendererTest extends TestCase
 {
@@ -12,48 +16,25 @@ class ContextXmlRendererTest extends TestCase
      */
     public function can_render_transactions()
     {
-        $this->markTestSkipped('We would need to defined a new dummy context file, as the format has changed.');
-        $fixture = file_get_contents(__DIR__ . '/fixtures/test_context_file_rendered.xml');
+        $fixture = file_get_contents(__DIR__ . '/fixtures/test_context_file_statements.xml');
         $domDocument = new \DOMDocument();
         $domDocument->loadXML($fixture);
 
         $sut = new ContextXmlRenderer($domDocument);
 
-        $localAccount = new Account(new BankCode('50951469'), '12112345', 'Mustermann');
+        $localAccount = new Account(new BankCode('32151229'), '12112345');
         $expectedTransactions = array(
             new Transaction(
                 $localAccount,
-                new Account(new BankCode('MALADE51KOB'), 'DE62570501200000012345', 'Sehr sehr langer Kontoinhab|ername'),
+                new Account(new BankCode('MALADE51KOB'), 'DE62570501200000012345', 'Sehr sehr langer Kontoinhab'),
+                'statement',
                 '5828201 01.06.2013',
-                new \DateTime('2013-06-03 12:00:00', new \DateTimeZone('UTC')),
-                new \DateTime('2013-06-03 12:00:00', new \DateTimeZone('UTC')),
-                Money::EUR(157740)
-            ),
-            new Transaction(
-                $localAccount,
-                new Account(new BankCode('50010060'), '12777914', 'Energieversorger XY'),
-                'KNR. 9540395 88.00/ABSCHLAG|VOM 03.06.2013 570125/MUST|ERSTR. 1, 12345 MUSTERSTADT',
-                new \DateTime('2013-06-04 12:00:00', new \DateTimeZone('UTC')),
-                new \DateTime('2013-06-04 12:00:00', new \DateTimeZone('UTC')),
-                Money::EUR(-8800)
-            ),
-            new Transaction(
-                $localAccount,
-                new Account(new BankCode('50961592'), '2531234', 'VEREIN XY'),
-                'MITGLIEDSBEITRAG 2013',
-                new \DateTime('2013-06-05 12:00:00', new \DateTimeZone('UTC')),
-                new \DateTime('2013-06-05 12:00:00', new \DateTimeZone('UTC')),
-                Money::EUR(-3800)
-            ),
-            new Transaction(
-                $localAccount,
-                new Account(new BankCode('50070010'), '175123456', 'PAYPAL'),
-                'MHXA2O4A9O3HJ3PA PP*2240*PP|* VERKAEUFER X, IHR EINKAU|F BEI VERKAEUFER X, ARTIKEL|-125116343137|123456P3TX1234DT',
-                new \DateTime('2013-06-07 12:00:00', new \DateTimeZone('UTC')),
-                new \DateTime('2013-06-07 12:00:00', new \DateTimeZone('UTC')),
-                Money::EUR(-3180)
-            )
-        );
+                new \DateTime('2021-12-01 00:00:00', new \DateTimeZone('UTC')),
+                new \DateTime('2021-12-01 00:00:00', new \DateTimeZone('UTC')),
+                Money::EUR(-1111),
+                '97186',
+                'KREW+'
+            ));
 
         $this->assertEquals($expectedTransactions, $sut->getTransactions());
     }
@@ -63,30 +44,13 @@ class ContextXmlRendererTest extends TestCase
      */
     public function throws_exception_if_data_contains_reserved_char()
     {
-        $this->markTestSkipped('We would need to defined a new dummy context file, as the format has changed.');
-        $fixture = file_get_contents(__DIR__ . '/fixtures/test_context_file_rendered_with_reserved_char.xml');
+        $fixture = file_get_contents(__DIR__ . '/fixtures/test_context_file_statements_with_reserved_char.xml');
         $domDocument = new \DOMDocument();
         $domDocument->loadXML($fixture);
 
         $sut = new ContextXmlRenderer($domDocument);
 
-        $this->setExpectedException('\RuntimeException');
-        $sut->getTransactions();
-    }
-
-    /**
-     * @test
-     */
-    public function throws_exception_if_date_is_not_flagged_as_utc()
-    {
-        $this->markTestSkipped('We would need to defined a new dummy context file, as the format has changed.');
-        $fixture = file_get_contents(__DIR__ . '/fixtures/test_context_file_rendered_with_wrong_utc_flag.xml');
-        $domDocument = new \DOMDocument();
-        $domDocument->loadXML($fixture);
-
-        $sut = new ContextXmlRenderer($domDocument);
-
-        $this->setExpectedException('\RuntimeException');
+        $this->expectException('\RuntimeException');
         $sut->getTransactions();
     }
 
@@ -95,14 +59,13 @@ class ContextXmlRendererTest extends TestCase
      */
     public function throws_exception_if_amount_is_malformed()
     {
-        $this->markTestSkipped('We would need to defined a new dummy context file, as the format has changed.');
-        $fixture = file_get_contents(__DIR__ . '/fixtures/test_context_file_rendered_with_malformed_amount.xml');
+        $fixture = file_get_contents(__DIR__ . '/fixtures/test_context_file_statements_with_malformed_amount.xml');
         $domDocument = new \DOMDocument();
         $domDocument->loadXML($fixture);
 
         $sut = new ContextXmlRenderer($domDocument);
 
-        $this->setExpectedException('\AqBanking\RuntimeException');
+        $this->expectException('\AqBanking\RuntimeException');
         $sut->getTransactions();
     }
 }

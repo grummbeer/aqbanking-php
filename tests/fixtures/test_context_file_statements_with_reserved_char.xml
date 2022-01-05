@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImExporterContext type="group">
+<accountInfoList type="group">
+<accountInfo type="group">
+<bankCode type="var">
+<value type="char">3782564</value>
+</bankCode>
+<accountNumber type="var">
+<value type="char">4545734242</value>
+</accountNumber>
+<iban type="var">
+<value type="char">DE12345678954342</value>
+</iban>
+<accountType type="var">
+<value type="int">1</value>
+</accountType>
+<accountId type="var">
+<value type="int">21</value>
+</accountId>
+<balanceList type="group">
+<balance type="group">
+<date type="var">
+<value type="char">20211201</value>
+</date>
+<value type="var">
+<value type="char">123/100:EUR</value>
+</value>
+<type type="var">
+<value type="char">temporary</value>
+</type>
+</balance>
+<balance type="group">
+<date type="var">
+<value type="char">20211201</value>
+</date>
+<value type="var">
+<value type="char">12345/10:EUR</value>
+</value>
+<type type="var">
+<value type="char">noted</value>
+</type>
+</balance>
+<balance type="group">
+<date type="var">
+<value type="char">20211202</value>
+</date>
+<value type="var">
+<value type="char">123456/100:EUR</value>
+</value>
+<type type="var">
+<value type="char">noted</value>
+</type>
+</balance>
+</balanceList>
+<transactionList type="group">
+<transaction type="group">
+<type type="var">
+<value type="char">statement</value>
+</type>
+<subType type="var">
+<value type="char">none</value>
+</subType>
+<command type="var">
+<value type="char">none</value>
+</command>
+<status type="var">
+<value type="char">unknown</value>
+</status>
+<uniqueAccountId type="var">
+<value type="int">0</value>
+</uniqueAccountId>
+<acknowledge type="var">
+<value type="char">never</value>
+</acknowledge>
+<uniqueId type="var">
+<value type="int">0</value>
+</uniqueId>
+<refUniqueId type="var">
+<value type="int">0</value>
+</refUniqueId>
+<idForApplication type="var">
+<value type="int">0</value>
+</idForApplication>
+<sessionId type="var">
+<value type="int">0</value>
+</sessionId>
+<groupId type="var">
+<value type="int">0</value>
+</groupId>
+<localBankCode type="var">
+<value type="char">32151229</value>
+</localBankCode>
+<localAccountNumber type="var">
+<value type="char">12112345</value>
+</localAccountNumber>
+<remoteBankCode type="var">
+<value type="char">MALADE51KOB</value>
+</remoteBankCode>
+<remoteAccountNumber type="var">
+<value type="char">DE62570501200000012345</value>
+</remoteAccountNumber>
+<remoteIban type="var">
+<value type="char">DE62570501200000012345</value>
+</remoteIban>
+<remoteBic type="var">
+<value type="char">BNPAFRPPXXX</value>
+</remoteBic>
+<remoteName type="var">
+<value type="char">Sehr sehr langer Kontoinhab</value>
+</remoteName>
+<date type="var">
+<value type="char">20211201</value>
+</date>
+<valutaDate type="var">
+<value type="char">20211201</value>
+</valutaDate>
+<value type="var">
+<value type="char">-1111/100:EUR</value>
+</value>
+<transactionCode type="var">
+<value type="int">105</value>
+</transactionCode>
+<transactionText type="var">
+<value type="char">GUTSCHRIFT</value>
+</transactionText>
+<transactionKey type="var">
+<value type="char">DDT</value>
+</transactionKey>
+<textKey type="var">
+<value type="int">0</value>
+</textKey>
+<primanota type="var">
+<value type="char">97186</value>
+</primanota>
+<purpose type="var">
+<value type="char">5828201 01.06.2013|mit falschen Zeichen</value>
+</purpose>
+<customerReference type="var">
+<value type="char">KREW+</value>
+</customerReference>
+<bankReference type="var">
+<value type="char">97186</value>
+</bankReference>
+<endToEndReference type="var">
+<value type="char">5828201 01.06.2013</value>
+</endToEndReference>
+<creditorSchemeId type="var">
+<value type="char">LU11ZW0000000000000000012</value>
+</creditorSchemeId>
+<mandateId type="var">
+<value type="char">5D5J224MBUNPX</value>
+</mandateId>
+<sequence type="var">
+<value type="char">unknown</value>
+</sequence>
+<charge type="var">
+<value type="char">unknown</value>
+</charge>
+<period type="var">
+<value type="char">unknown</value>
+</period>
+<cycle type="var">
+<value type="int">0</value>
+</cycle>
+<executionDay type="var">
+<value type="int">0</value>
+</executionDay>
+<estatementNumber type="var">
+<value type="int">0</value>
+</estatementNumber>
+<estatementMaxEntries type="var">
+<value type="int">0</value>
+</estatementMaxEntries>
+</transaction>
+</transactionList>
+<eStatementList type="group"></eStatementList>
+</accountInfo>
+</accountInfoList>
+<securityList type="group"></securityList>
+<messageList type="group"></messageList>
+</ImExporterContext>

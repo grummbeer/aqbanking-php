@@ -2,15 +2,11 @@
 
 namespace Tests\Command;
 
-use AqBanking\User;
 use AqBanking\Account;
 use AqBanking\BankCode;
 use AqBanking\ContextFile;
-use AqBanking\PinFile\PinFile;
 use AqBanking\Command\RequestCommand;
 use AqBanking\Command\ShellCommandExecutor\Result;
-
-require_once 'ShellCommandTestCase.php';
 
 class RequestCommandTest extends ShellCommandTestCase
 {
