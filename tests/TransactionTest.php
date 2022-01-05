@@ -1,11 +1,15 @@
 <?php
 
-namespace AqBanking;
+namespace Tests;
 
-use Money\Currency;
 use Money\Money;
+use Money\Currency;
+use AqBanking\Account;
+use AqBanking\BankCode;
+use AqBanking\Transaction;
+use PHPUnit\Framework\TestCase;
 
-class TransactionTest extends \PHPUnit_Framework_TestCase
+class TransactionTest extends TestCase
 {
     /**
      * @test
@@ -18,14 +22,20 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
         $valutaDate = new \DateTime('today');
         $date = new \DateTime('yesterday');
         $value = new Money(100, new Currency('EUR'));
+        $type = "statement";
+        $primaNota = "";
+        $customerReference = "a random reference";
 
         $sut = new Transaction(
             $localAccount,
             $remoteAccount,
+            $type,
             $purpose,
             $valutaDate,
             $date,
-            $value
+            $value,
+            $primaNota,
+            $customerReference
         );
 
         $this->assertEquals($localAccount, $sut->getLocalAccount());

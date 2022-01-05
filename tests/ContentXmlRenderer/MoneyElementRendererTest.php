@@ -1,10 +1,12 @@
 <?php
 
-namespace AqBanking\ContentXmlRenderer;
+namespace Tests\ContentXmlRenderer;
 
 use Money\Money;
+use PHPUnit\Framework\TestCase;
+use AqBanking\ContentXmlRenderer\MoneyElementRenderer;
 
-class MoneyElementRendererTest extends \PHPUnit_Framework_TestCase
+class MoneyElementRendererTest extends TestCase
 {
     /**
      * @test
@@ -125,7 +127,7 @@ class MoneyElementRendererTest extends \PHPUnit_Framework_TestCase
     {
         $sut = new MoneyElementRenderer();
 
-        $this->setExpectedException('\AqBanking\RuntimeException');
+        $this->expectException('\AqBanking\RuntimeException');
         $sut->render('200/200', 'EUR');
     }
 
@@ -136,7 +138,8 @@ class MoneyElementRendererTest extends \PHPUnit_Framework_TestCase
     {
         $sut = new MoneyElementRenderer();
 
-        $this->setExpectedException('\AqBanking\RuntimeException', 'Biassed rendering result');
+        $this->expectException('\AqBanking\RuntimeException');
+        $this->expectExceptionMessage('Biassed rendering result');
         $sut->render('1234/1000', 'EUR');
     }
 
@@ -147,7 +150,7 @@ class MoneyElementRendererTest extends \PHPUnit_Framework_TestCase
     {
         $sut = new MoneyElementRenderer();
 
-        $this->setExpectedException('\AqBanking\RuntimeException');
+        $this->expectException('\AqBanking\RuntimeException');
         $sut->render('1/100', 'XXX');
     }
 
@@ -158,7 +161,7 @@ class MoneyElementRendererTest extends \PHPUnit_Framework_TestCase
     {
         $sut = new MoneyElementRenderer();
 
-        $this->setExpectedException('\AqBanking\RuntimeException');
+        $this->expectException('\AqBanking\RuntimeException');
         $sut->render('/100', 'EUR');
     }
 }

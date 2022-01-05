@@ -1,11 +1,13 @@
 <?php
 
-namespace AqBanking\Command;
+namespace Tests\Command;
 
-use AqBanking\Command\ShellCommandExecutor\Result;
 use AqBanking\ContextFile;
+use PHPUnit\Framework\TestCase;
+use AqBanking\Command\ShellCommandExecutor\Result;
+use AqBanking\Command\RenderContextFileToXMLCommand;
 
-class RenderContextFileToXMLCommandTest extends \PHPUnit_Framework_TestCase
+class RenderContextFileToXMLCommandTest extends TestCase
 {
     public function testCanIssueCorrectRenderCommand()
     {
@@ -40,9 +42,6 @@ class RenderContextFileToXMLCommandTest extends \PHPUnit_Framework_TestCase
         $this->assertXmlStringEqualsXmlString($expectedXmlString, $result->saveXML());
     }
 
-    /**
-     * @expectedException \RuntimeException
-     */
     public function testCanHandleUnexpectedOutput()
     {
         $shellCommandExecutorMock = \Mockery::mock('AqBanking\Command\ShellCommandExecutor');
@@ -53,6 +52,7 @@ class RenderContextFileToXMLCommandTest extends \PHPUnit_Framework_TestCase
         $sut = new RenderContextFileToXMLCommand();
         $sut->setShellCommandExecutor($shellCommandExecutorMock);
 
+        $this->expectException('RuntimeException');
         $sut->execute(new ContextFile('/path/to/some/context/file.ctx'));
     }
 }

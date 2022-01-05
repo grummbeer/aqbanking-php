@@ -1,16 +1,13 @@
 <?php
 
-namespace AqBanking\Command;
+namespace Tests\Command;
 
+use PHPUnit\Framework\TestCase;
+use AqBanking\Command\CheckAqBankingCommand;
 use AqBanking\Command\ShellCommandExecutor\Result;
 
-class CheckAqBankingCommandTest extends \PHPUnit_Framework_TestCase
+class CheckAqBankingCommandTest extends TestCase
 {
-    protected function tearDown()
-    {
-        \Mockery::close();
-    }
-
     public function testCanTellIfAqBankingIsInstalled()
     {
         $shellCommandExecutorMock = \Mockery::mock('AqBanking\Command\ShellCommandExecutor');
@@ -31,9 +28,6 @@ class CheckAqBankingCommandTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(true);
     }
 
-    /**
-     * @expectedException \AqBanking\Command\CheckAqBankingCommand\AqBankingNotRespondingException
-     */
     public function testCanTellIfAqBankingIsNotInstalled()
     {
         $shellCommandExecutorMock = \Mockery::mock('AqBanking\Command\ShellCommandExecutor');
@@ -44,12 +38,10 @@ class CheckAqBankingCommandTest extends \PHPUnit_Framework_TestCase
 
         $sut = new CheckAqBankingCommand();
         $sut->setShellCommandExecutor($shellCommandExecutorMock);
+        $this->expectException('\AqBanking\Command\CheckAqBankingCommand\AqBankingNotRespondingException');
         $sut->execute();
     }
 
-    /**
-     * @expectedException \AqBanking\Command\CheckAqBankingCommand\AqBankingVersionTooOldException
-     */
     public function testCanHandleVeryOldAqBankingVersionWithoutAqBankingConfig()
     {
         $shellCommandExecutorMock = \Mockery::mock('AqBanking\Command\ShellCommandExecutor');
@@ -64,12 +56,10 @@ class CheckAqBankingCommandTest extends \PHPUnit_Framework_TestCase
 
         $sut = new CheckAqBankingCommand();
         $sut->setShellCommandExecutor($shellCommandExecutorMock);
+        $this->expectException('\AqBanking\Command\CheckAqBankingCommand\AqBankingVersionTooOldException');
         $sut->execute();
     }
 
-    /**
-     * @expectedException \AqBanking\Command\CheckAqBankingCommand\AqBankingVersionTooOldException
-     */
     public function testCanTellIfAqBankingVersionIsTooOld()
     {
         $shellCommandExecutorMock = \Mockery::mock('AqBanking\Command\ShellCommandExecutor');
@@ -84,6 +74,7 @@ class CheckAqBankingCommandTest extends \PHPUnit_Framework_TestCase
 
         $sut = new CheckAqBankingCommand();
         $sut->setShellCommandExecutor($shellCommandExecutorMock);
+        $this->expectException('\AqBanking\Command\CheckAqBankingCommand\AqBankingVersionTooOldException');
         $sut->execute();
     }
 }

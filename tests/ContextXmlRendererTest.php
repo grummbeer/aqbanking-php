@@ -1,10 +1,11 @@
 <?php
 
-namespace AqBanking;
+namespace Tests;
 
 use Money\Money;
+use PHPUnit\Framework\TestCase;
 
-class ContextXmlRendererTest extends \PHPUnit_Framework_TestCase
+class ContextXmlRendererTest extends TestCase
 {
     /**
      * @test

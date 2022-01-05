@@ -1,13 +1,14 @@
 <?php
 
-namespace AqBanking\Command;
+namespace Tests\Command;
 
+use AqBanking\User;
 use AqBanking\Account;
 use AqBanking\BankCode;
-use AqBanking\Command\ShellCommandExecutor\Result;
 use AqBanking\ContextFile;
 use AqBanking\PinFile\PinFile;
-use AqBanking\User;
+use AqBanking\Command\RequestCommand;
+use AqBanking\Command\ShellCommandExecutor\Result;
 
 require_once 'ShellCommandTestCase.php';
 
@@ -94,9 +95,6 @@ class RequestCommandTest extends ShellCommandTestCase
         $this->assertTrue(true);
     }
 
-    /**
-     * @expectedException \AqBanking\Command\ShellCommandExecutor\DefectiveResultException
-     */
     public function testThrowsExceptionOnUnexpectedResult()
     {
         $accountNumber = '12345678';
@@ -117,6 +115,7 @@ class RequestCommandTest extends ShellCommandTestCase
 
         $sut = new RequestCommand($account, $contextFile, $pinFileMock);
         $sut->setShellCommandExecutor($shellCommandExecutorMock);
+        $this->expectException('AqBanking\Command\ShellCommandExecutor\DefectiveResultException');
         $sut->execute();
     }
 

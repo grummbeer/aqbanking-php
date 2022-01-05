@@ -1,13 +1,12 @@
 <?php
 
-namespace AqBanking\Command;
+namespace Tests\Command;
 
 use AqBanking\Bank;
-use AqBanking\BankCode;
-use AqBanking\Command\ShellCommandExecutor\Result;
 use AqBanking\User;
-
-require_once 'ShellCommandTestCase.php';
+use AqBanking\BankCode;
+use AqBanking\Command\AddUserCommand;
+use AqBanking\Command\ShellCommandExecutor\Result;
 
 class AddUserCommandTest extends ShellCommandTestCase
 {
@@ -48,9 +47,6 @@ class AddUserCommandTest extends ShellCommandTestCase
         $this->assertTrue(true);
     }
 
-    /**
-     * @expectedException \AqBanking\Command\AddUserCommand\UserAlreadyExistsException
-     */
     public function testThrowsExceptionIfUserAlreadyExists()
     {
         $userId = 'mustermann';
@@ -78,12 +74,10 @@ class AddUserCommandTest extends ShellCommandTestCase
         $sut = new AddUserCommand();
         $sut->setShellCommandExecutor($shellCommandExecutorMock);
 
+        $this->expectException('\AqBanking\Command\AddUserCommand\UserAlreadyExistsException');
         $sut->execute(new User($userId, $userName, new Bank(new BankCode($bankCodeString), $hbciUrl)));
     }
 
-    /**
-     * @expectedException \AqBanking\Command\ShellCommandExecutor\DefectiveResultException
-     */
     public function testThrowsExceptionOnUnexpectedResult()
     {
         $userId = 'mustermann';
@@ -111,6 +105,7 @@ class AddUserCommandTest extends ShellCommandTestCase
         $sut = new AddUserCommand();
         $sut->setShellCommandExecutor($shellCommandExecutorMock);
 
+        $this->expectException('AqBanking\Command\ShellCommandExecutor\DefectiveResultException');
         $sut->execute(new User($userId, $userName, new Bank(new BankCode($bankCodeString), $hbciUrl)));
     }
 }

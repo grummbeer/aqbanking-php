@@ -8,8 +8,6 @@ class ShellCommandExecutor
 {
     const ERROR_REPORTING = 'error';
 
-    private $pid = -1;
-
     public function execute($shellCommand)
     {
         $shellCommand = 'AQBANKING_LOGLEVEL=' . self::ERROR_REPORTING .
@@ -20,7 +18,7 @@ class ShellCommandExecutor
         $returnVar = null;
         $tempFile = tempnam(sys_get_temp_dir(), 'aqb-');
 
-        $this->pid = exec($shellCommand . ' 2>' . $tempFile ." & echo $!;", $output, $returnVar);
+        exec($shellCommand . ' 2>' . $tempFile, $output, $returnVar);
 
         $errorOutput = file($tempFile);
         $errorOutput = array_map(function ($line) {
@@ -30,15 +28,4 @@ class ShellCommandExecutor
 
         return new Result($output, $errorOutput, $returnVar);
     }
-
-
-    public function isRunning()
-    {
-        if (exec(printf('ps -p %s -o "pid=" >/dev/null 2>&1', $this->pid))) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
 }
