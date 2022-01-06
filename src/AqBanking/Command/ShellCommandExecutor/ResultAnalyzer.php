@@ -32,6 +32,7 @@ class ResultAnalyzer
         '/There is no old settings folder, need initial setup/',
         '/Account is new, adding/',
         '/^  .*$/', // everything starting with a space belongs to a previous message and is not an error (hopefully)
+        '/Selecting PAIN format.*$/'
     );
 
     /**

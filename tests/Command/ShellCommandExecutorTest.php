@@ -1,8 +1,11 @@
 <?php
 
-namespace AqBanking\Command;
+namespace Tests\Command;
 
-class ShellCommandExecutorTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+use AqBanking\Command\ShellCommandExecutor;
+
+class ShellCommandExecutorTest extends TestCase
 {
     public function testCanExecuteCommand()
     {

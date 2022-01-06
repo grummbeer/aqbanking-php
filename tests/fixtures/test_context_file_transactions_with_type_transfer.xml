@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImExporterContext type="group">
+<accountInfoList type="group">
+<accountInfo type="group">
+<bankCode type="var">
+<value type="char">12345678</value>
+</bankCode>
+<accountNumber type="var">
+<value type="char">404072100</value>
+</accountNumber>
+<iban type="var">
+<value type="char">DE33123456780000000000</value>
+</iban>
+<bic type="var">
+<value type="char">ASDFFFWWAA</value>
+</bic>
+<owner type="var">
+<value type="char">HARALD MUSTERMANN</value>
+</owner>
+<accountType type="var">
+<value type="int">0</value>
+</accountType>
+<accountId type="var">
+<value type="int">0</value>
+</accountId>
+<balanceList type="group"></balanceList>
+<transactionList type="group">
+<transaction type="group">
+<type type="var">
+<value type="char">transfer</value>
+</type>
+<subType type="var">
+<value type="char">standard</value>
+</subType>
+<command type="var">
+<value type="char">sepaTransfer</value>
+</command>
+<status type="var">
+<value type="char">pending</value>
+</status>
+<uniqueAccountId type="var">
+<value type="int">47</value>
+</uniqueAccountId>
+<acknowledge type="var">
+<value type="char">never</value>
+</acknowledge>
+<uniqueId type="var">
+<value type="int">2407</value>
+</uniqueId>
+<refUniqueId type="var">
+<value type="int">0</value>
+</refUniqueId>
+<idForApplication type="var">
+<value type="int">0</value>
+</idForApplication>
+<sessionId type="var">
+<value type="int">0</value>
+</sessionId>
+<groupId type="var">
+<value type="int">2407</value>
+</groupId>
+<localIban type="var">
+<value type="char">DE33123456780000000000</value>
+</localIban>
+<localBic type="var">
+<value type="char">ASDFFFWWAA</value>
+</localBic>
+<localCountry type="var">
+<value type="char">de</value>
+</localCountry>
+<localBankCode type="var">
+<value type="char">12345678</value>
+</localBankCode>
+<localAccountNumber type="var">
+<value type="char">404072100</value>
+</localAccountNumber>
+<localName type="var">
+<value type="char">HARALD MUSTERMANN</value>
+</localName>
+<remoteCountry type="var">
+<value type="char">de</value>
+</remoteCountry>
+<remoteIban type="var">
+<value type="char">DE15453384569356645534</value>
+</remoteIban>
+<remoteName type="var">
+<value type="char">WARENHAUS GMBH</value>
+</remoteName>
+<date type="var">
+<value type="char">20220106</value>
+</date>
+<value type="var">
+<value type="char">2174/100:EUR</value>
+</value>
+<fees type="var">
+<value type="char">0</value>
+</fees>
+<taxes type="var">
+<value type="char">0</value>
+</taxes>
+<transactionCode type="var">
+<value type="int">0</value>
+</transactionCode>
+<textKey type="var">
+<value type="int">0</value>
+</textKey>
+<purpose type="var">
+<value type="char">Rechnung</value>
+</purpose>
+<sequence type="var">
+<value type="char">unknown</value>
+</sequence>
+<charge type="var">
+<value type="char">unknown</value>
+</charge>
+<period type="var">
+<value type="char">unknown</value>
+</period>
+<cycle type="var">
+<value type="int">0</value>
+</cycle>
+<executionDay type="var">
+<value type="int">0</value>
+</executionDay>
+<units type="var">
+<value type="char">0</value>
+</units>
+<unitPriceValue type="var">
+<value type="char">0</value>
+</unitPriceValue>
+<commissionValue type="var">
+<value type="char">0</value>
+</commissionValue>
+<estatementNumber type="var">
+<value type="int">0</value>
+</estatementNumber>
+<estatementMaxEntries type="var">
+<value type="int">0</value>
+</estatementMaxEntries>
+</transaction>
+</transactionList>
+<eStatementList type="group"></eStatementList>
+</accountInfo>
+</accountInfoList>
+<securityList type="group"></securityList>
+<messageList type="group"></messageList>
+</ImExporterContext>

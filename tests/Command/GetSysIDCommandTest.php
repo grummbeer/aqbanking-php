@@ -1,13 +1,14 @@
 <?php
 
-namespace AqBanking\Command;
+namespace Tests\Command;
 
 use AqBanking\Bank;
+use AqBanking\User;
 use AqBanking\BankCode;
-use AqBanking\Command\ShellCommandExecutor\Result;
 use AqBanking\ExistingUser;
 use AqBanking\PinFile\PinFile;
-use AqBanking\User;
+use AqBanking\Command\GetSysIDCommand;
+use AqBanking\Command\ShellCommandExecutor\Result;
 
 class GetSysIDCommandTest extends ShellCommandTestCase
 {
@@ -49,9 +50,6 @@ class GetSysIDCommandTest extends ShellCommandTestCase
         $this->assertTrue(true);
     }
 
-    /**
-     * @expectedException \AqBanking\Command\ShellCommandExecutor\DefectiveResultException
-     */
     public function testThrowsExceptionOnUnexpectedResult()
     {
         $userId = 'mustermann';
@@ -85,6 +83,7 @@ class GetSysIDCommandTest extends ShellCommandTestCase
 
         $sut = new GetSysIDCommand();
         $sut->setShellCommandExecutor($shellCommandExecutorMock);
+        $this->expectException('\AqBanking\Command\ShellCommandExecutor\DefectiveResultException');
         $sut->execute($existingUser, $pinFile);
     }
 }

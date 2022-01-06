@@ -70,9 +70,14 @@ class ContextXmlRenderer
                 $this->xPath->query('customerReference/value', $transactionNode)
             );
 
+            $type = $this->renderMultiLineElement(
+                $this->xPath->query('type', $transactionNode)
+            );
+
             $transactions[] = new Transaction(
                 new Account(new BankCode($localBankCode), $localAccountNumber, $localName),
                 new Account(new BankCode($remoteBankCode), $remoteAccountNumber, $remoteName),
+                $type,
                 $purpose,
                 $valutaDate,
                 $date,
@@ -132,8 +137,12 @@ class ContextXmlRenderer
      * @throws \RuntimeException
      * @return \DateTime
      */
-    private function renderDateElement(\DOMNode $node)
+    private function renderDateElement(\DOMNode $node = null)
     {
+        if(!$node) {
+            return null;
+        }
+
         $dateElement = $this->xPath->query('value', $node)->item(0);
         $date = \DateTime::createFromFormat(
             'Ymd',

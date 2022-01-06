@@ -1,0 +1,65 @@
+accountInfoList {
+  accountInfo {
+    char bankCode="12345678"
+    char accountNumber="404072100"
+    char iban="DE33123456780000000000"
+    char bic="ASDFFFWWAA"
+    char owner="HARALD MUSTERMANN"
+    int  accountType="0"
+    int  accountId="0"
+
+    balanceList {
+    } #balanceList
+
+    transactionList {
+      transaction {
+        char type="transfer"
+        char subType="standard"
+        char command="sepaTransfer"
+        char status="pending"
+        int  uniqueAccountId="47"
+        char acknowledge="never"
+        int  uniqueId="2407"
+        int  refUniqueId="0"
+        int  idForApplication="0"
+        int  sessionId="0"
+        int  groupId="2407"
+        char localIban="DE33123456780000000000"
+        char localBic="ASDFFFWWAA"
+        char localCountry="de"
+        char localBankCode="12345678"
+        char localAccountNumber="404072100"
+        char localName="HARALD MUSTERMANN"
+        char remoteCountry="de"
+        char remoteIban="DE15453384569356645534"
+        char remoteName="WARENHAUS GMBH"
+        char date="20220106"
+        char value="2174%2F100%3AEUR"
+        char fees="0"
+        char taxes="0"
+        int  transactionCode="0"
+        int  textKey="0"
+        char purpose="Rechnung"
+        char sequence="unknown"
+        char charge="unknown"
+        char period="unknown"
+        int  cycle="0"
+        int  executionDay="0"
+        char units="0"
+        char unitPriceValue="0"
+        char commissionValue="0"
+        int  estatementNumber="0"
+        int  estatementMaxEntries="0"
+      } #transaction
+    } #transactionList
+
+    eStatementList {
+    } #eStatementList
+  } #accountInfo
+} #accountInfoList
+
+securityList {
+} #securityList
+
+messageList {
+} #messageList

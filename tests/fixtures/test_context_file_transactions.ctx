@@ -1,0 +1,82 @@
+accountInfoList {
+  accountInfo {
+    char bankCode="3782564"
+    char accountNumber="4545734242"
+    char iban="DE12345678954342"
+    int  accountType="1"
+    int  accountId="21"
+
+    balanceList {
+      balance {
+        char date="20211201"
+        char value="123%2F100%3AEUR"
+        char type="temporary"
+      } #balance
+
+      balance {
+        char date="20211201"
+        char value="12345%2F10%3AEUR"
+        char type="noted"
+      } #balance
+
+      balance {
+        char date="20211202"
+        char value="123456%2F100%3AEUR"
+        char type="noted"
+      } #balance
+    } #balanceList
+
+    transactionList {
+      transaction {
+        char type="statement"
+        char subType="none"
+        char command="none"
+        char status="unknown"
+        int  uniqueAccountId="0"
+        char acknowledge="never"
+        int  uniqueId="0"
+        int  refUniqueId="0"
+        int  idForApplication="0"
+        int  sessionId="0"
+        int  groupId="0"
+        char localBankCode="32151229"
+        char localAccountNumber="12112345"
+        char remoteBankCode="MALADE51KOB"
+        char remoteAccountNumber="DE62570501200000012345"
+        char remoteIban="DE62570501200000012345"
+        char remoteBic="BNPAFRPPXXX"
+        char remoteName="Sehr sehr langer Kontoinhab", "ername"
+        char date="20211201"
+        char valutaDate="20211201"
+        char value="-1111%2F100%3AEUR"
+        int  transactionCode="105"
+        char transactionText="GUTSCHRIFT"
+        char transactionKey="DDT"
+        int  textKey="0"
+        char primanota="97186"
+        char purpose="5828201 01.06.2013"
+        char customerReference="KREW%2B"
+        char bankReference="97186"
+        char endToEndReference="5828201 01.06.2013"
+        char creditorSchemeId="LU11ZW0000000000000000012"
+        char mandateId="5D5J224MBUNPX"
+        char sequence="unknown"
+        char charge="unknown"
+        char period="unknown"
+        int  cycle="0"
+        int  executionDay="0"
+        int  estatementNumber="0"
+        int  estatementMaxEntries="0"
+      } #transaction
+    } #transactionList
+
+    eStatementList {
+    } #eStatementList
+  } #accountInfo
+} #accountInfoList
+
+securityList {
+} #securityList
+
+messageList {
+} #messageList
