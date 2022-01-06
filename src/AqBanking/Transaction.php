@@ -56,7 +56,7 @@ class Transaction implements Arrayable
         Account $remoteAccount,
         $type,
         $purpose,
-        \DateTime $valutaDate,
+        \DateTime $valutaDate = null,
         \DateTime $date,
         Money $value,
         $primaNota,
@@ -158,7 +158,7 @@ class Transaction implements Arrayable
                 'currency' => $this->getValue()->getCurrency()->getName(),
                 'priceUnit' => 100
             ],
-            'valutaDate' => $this->getValutaDate()->format('Y-m-d'),
+            'valutaDate' => $this->getValutaDate() ? $this->getValutaDate()->format('Y-m-d') : null,
             'primaNota' => $this->getPrimaNota(),
             'customerReference' => $this->getCustomerReference()
         ];

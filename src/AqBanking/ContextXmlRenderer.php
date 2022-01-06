@@ -137,8 +137,12 @@ class ContextXmlRenderer
      * @throws \RuntimeException
      * @return \DateTime
      */
-    private function renderDateElement(\DOMNode $node)
+    private function renderDateElement(\DOMNode $node = null)
     {
+        if(!$node) {
+            return null;
+        }
+
         $dateElement = $this->xPath->query('value', $node)->item(0);
         $date = \DateTime::createFromFormat(
             'Ymd',

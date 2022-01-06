@@ -14,9 +14,37 @@ class ContextXmlRendererTest extends TestCase
     /**
      * @test
      */
+    public function can_render_transfers()
+    {
+        $fixture = file_get_contents(__DIR__ . '/fixtures/test_context_file_transactions_with_type_transfer.xml');
+        $domDocument = new \DOMDocument();
+        $domDocument->loadXML($fixture);
+
+        $sut = new ContextXmlRenderer($domDocument);
+
+        $localAccount = new Account(new BankCode('12345678'), '404072100');
+        $expectedTransactions = array(
+            new Transaction(
+                $localAccount,
+                new Account(new BankCode(''), ''),
+                'transfer',
+                'Rechnung',
+                null,
+                new \DateTime('2022-01-06 00:00:00', new \DateTimeZone('UTC')),
+                Money::EUR(2174),
+                '',
+                ''
+            ));
+
+        $this->assertEquals($expectedTransactions, $sut->getTransactions());
+    }
+
+    /**
+     * @test
+     */
     public function can_render_transactions()
     {
-        $fixture = file_get_contents(__DIR__ . '/fixtures/test_context_file_statements.xml');
+        $fixture = file_get_contents(__DIR__ . '/fixtures/test_context_file_transactions.xml');
         $domDocument = new \DOMDocument();
         $domDocument->loadXML($fixture);
 
@@ -44,7 +72,7 @@ class ContextXmlRendererTest extends TestCase
      */
     public function throws_exception_if_data_contains_reserved_char()
     {
-        $fixture = file_get_contents(__DIR__ . '/fixtures/test_context_file_statements_with_reserved_char.xml');
+        $fixture = file_get_contents(__DIR__ . '/fixtures/test_context_file_transactions_with_reserved_char.xml');
         $domDocument = new \DOMDocument();
         $domDocument->loadXML($fixture);
 
@@ -59,7 +87,7 @@ class ContextXmlRendererTest extends TestCase
      */
     public function throws_exception_if_amount_is_malformed()
     {
-        $fixture = file_get_contents(__DIR__ . '/fixtures/test_context_file_statements_with_malformed_amount.xml');
+        $fixture = file_get_contents(__DIR__ . '/fixtures/test_context_file_transactions_with_malformed_amount.xml');
         $domDocument = new \DOMDocument();
         $domDocument->loadXML($fixture);
 
