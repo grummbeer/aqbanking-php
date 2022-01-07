@@ -22,11 +22,11 @@ class ContextXmlRendererTest extends TestCase
 
         $sut = new ContextXmlRenderer($domDocument);
 
-        $localAccount = new Account(new BankCode('12345678'), '404072100');
+        $localAccount = new Account(new BankCode('12345678'), '404072100', 'HARALD MUSTERMANN');
         $expectedTransactions = array(
             new Transaction(
                 $localAccount,
-                new Account(new BankCode(''), ''),
+                new Account(new BankCode(''), '', "WARENHAUS GMBH"),
                 'transfer',
                 'Rechnung',
                 null,
@@ -65,6 +65,7 @@ class ContextXmlRendererTest extends TestCase
             ));
 
         $this->assertEquals($expectedTransactions, $sut->getTransactions());
+
     }
 
     /**
