@@ -15,14 +15,21 @@ class Account implements AccountInterface, Arrayable
     private $accountNumber;
 
     /**
+     * @var string
+     */
+    private $accountHolderName;
+
+    /**
      * @param BankCode $bankCode
      * @param string $accountNumber
+     * @param string $accountHolderName
      * @return \AqBanking\Account
      */
-    public function __construct(BankCode $bankCode, $accountNumber)
+    public function __construct(BankCode $bankCode, $accountNumber, $accountHolderName = '')
     {
         $this->bankCode = $bankCode;
         $this->accountNumber = $accountNumber;
+        $this->accountHolderName = $accountHolderName;
     }
 
     /**
@@ -41,10 +48,19 @@ class Account implements AccountInterface, Arrayable
         return $this->accountNumber;
     }
 
+    /**
+     * @return string
+     */
+    public function getAccountHolderName()
+    {
+        return $this->accountHolderName;
+    }
+
     public function toArray()
     {
         return [
             'bankCode' => $this->getBankCode()->getString(),
+            'accountHolderName' => $this->getAccountHolderName(),
             'accountNumber' => $this->getAccountNumber()
         ];
     }

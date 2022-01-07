@@ -12,5 +12,10 @@ interface AccountInterface
     /**
      * @return string
      */
+    public function getAccountHolderName();
+
+    /**
+     * @return string
+     */
     public function getAccountNumber();
 }

@@ -55,4 +55,91 @@ class RenderContextFileToXMLCommandTest extends TestCase
         $this->expectException('RuntimeException');
         $sut->execute(new ContextFile('/path/to/some/context/file.ctx'));
     }
+
+    public function testCanRenderSimpleXML()
+    {
+        $shellCommandExecutorMock = \Mockery::mock('AqBanking\Command\ShellCommandExecutor');
+        $sut = new RenderContextFileToXMLCommand();
+        $sut->setShellCommandExecutor($shellCommandExecutorMock);
+
+        $shellCommandExecutorMock
+            ->shouldReceive('execute')
+            ->once()
+            ->andReturn(
+                new Result(
+                    [file_get_contents('./tests/fixtures/test_context_file_transactions_with_type_transfer.xml')],
+                    [],
+                    0
+            ));
+
+        $simpleXML = $sut->execute(
+            new ContextFile('/path/to/some/context/file.ctx'),
+            true
+        );
+
+        $this->assertEquals(
+            'DE33123456780000000000',
+            (string)$simpleXML->accountInfoList->accountInfo->iban->value
+        );
+
+        $this->assertEquals(
+            'ASDFFFWWAA',
+            (string)$simpleXML->accountInfoList->accountInfo->bic->value
+        );
+
+        $this->assertEquals(
+            'HARALD MUSTERMANN',
+            (string)$simpleXML->accountInfoList->accountInfo->owner->value
+        );
+
+        $this->assertEquals(
+            'DE15453384569356645534',
+            (string)$simpleXML->accountInfoList->accountInfo->transactionList->transaction->remoteIban->value
+        );
+
+        $this->assertEquals(
+            'DE15453384569356645534',
+            (string)$simpleXML->accountInfoList->accountInfo->transactionList->transaction->remoteIban->value
+        );
+
+        $this->assertEquals(
+            'WARENHAUS GMBH',
+            (string)$simpleXML->accountInfoList->accountInfo->transactionList->transaction->remoteName->value
+        );
+
+        $this->assertEquals(
+            '2174/100:EUR',
+            (string)$simpleXML->accountInfoList->accountInfo->transactionList->transaction->value->value
+        );
+
+        $this->assertEquals(
+            '0',
+            (string)$simpleXML->accountInfoList->accountInfo->transactionList->transaction->executionDay->value
+        );
+
+        $this->assertEquals(
+            '20220106',
+            (string)$simpleXML->accountInfoList->accountInfo->transactionList->transaction->date->value
+        );
+
+        $this->assertEquals(
+            'Rechnung',
+            (string)$simpleXML->accountInfoList->accountInfo->transactionList->transaction->purpose->value
+        );
+
+        $this->assertEquals(
+            'transfer',
+            (string)$simpleXML->accountInfoList->accountInfo->transactionList->transaction->type->value
+        );
+
+        $this->assertEquals(
+            'pending',
+            (string)$simpleXML->accountInfoList->accountInfo->transactionList->transaction->status->value
+        );
+
+        $this->assertEquals(
+            '2407',
+            (string)$simpleXML->accountInfoList->accountInfo->transactionList->transaction->uniqueId->value
+        );
+    }
 }
