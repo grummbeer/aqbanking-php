@@ -43,7 +43,7 @@ class ContextXmlRenderer
                 $this->xPath->query('localBankCode/value', $transactionNode)
             );
             $localAccountNumber = $this->renderMultiLineElement(
-                $this->xPath->query('localAccountNumber/value', $transactionNode)
+                $this->xPath->query('localIban/value', $transactionNode)
             );
             $localName = $this->renderMultiLineElement($this->xPath->query('localName/value', $transactionNode));
 
@@ -51,7 +51,7 @@ class ContextXmlRenderer
                 $this->xPath->query('remoteBankCode/value', $transactionNode)
             );
             $remoteAccountNumber = $this->renderMultiLineElement(
-                $this->xPath->query('remoteAccountNumber/value', $transactionNode)
+                $this->xPath->query('remoteIban/value', $transactionNode)
             );
             $remoteName = $this->renderMultiLineElement($this->xPath->query('remoteName/value', $transactionNode));
 
