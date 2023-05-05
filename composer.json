@@ -21,7 +21,7 @@
         "juit/aqbanking-php": "*"
     },
     "require": {
-        "php": "^7.2",
+        "php": "^7.2|8.0.*|8.1.*",
         "mathiasverraes/money": "1.2.0"
     },
     "require-dev": {
