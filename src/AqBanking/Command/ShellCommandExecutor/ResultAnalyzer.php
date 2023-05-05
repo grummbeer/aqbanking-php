@@ -26,6 +26,7 @@ class ResultAnalyzer
         '/Depot job not found/',
         '/Adding supported CAMT format/',
         '/Adding supported CAMT form/',
+        '/Path "Ustrd" not found/',
         '/Adding matching profile/',
         '/Handling user/',
         '/Writing account spec/',
