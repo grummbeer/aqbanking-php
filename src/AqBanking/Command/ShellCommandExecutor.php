@@ -18,6 +18,9 @@ class ShellCommandExecutor
         $returnVar = null;
         $tempFile = tempnam(sys_get_temp_dir(), 'aqb-');
 
+//        FIXME: Make a configurable log file
+//        file_put_contents('/tmp/aqbanking.log', $shellCommand . PHP_EOL, FILE_APPEND);
+
         exec($shellCommand . ' 2>' . $tempFile, $output, $returnVar);
 
         $errorOutput = file($tempFile);
