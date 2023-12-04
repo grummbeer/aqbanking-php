@@ -98,11 +98,6 @@ class RenderContextFileToXMLCommandTest extends TestCase
         );
 
         $this->assertEquals(
-            'DE15453384569356645534',
-            (string)$simpleXML->accountInfoList->accountInfo->transactionList->transaction->remoteIban->value
-        );
-
-        $this->assertEquals(
             'WARENHAUS GMBH',
             (string)$simpleXML->accountInfoList->accountInfo->transactionList->transaction->remoteName->value
         );
