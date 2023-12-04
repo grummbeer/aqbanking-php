@@ -7,13 +7,13 @@
         {
             "name": "Jan Unger",
             "email": "ju@juit.de",
-            "homepage": "http://juit.de",
+            "homepage": "https://juit.de",
             "role": "developer"
         },
         {
             "name": "Alexander Menk",
             "email": "menk@mestrona.net",
-            "homepage": "http://mestrona.net",
+            "homepage": "https://mestrona.net",
             "role": "maintainer"
         }
     ],
