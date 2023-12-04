@@ -3,9 +3,9 @@
 namespace AqBanking\ContentXmlRenderer;
 
 use AqBanking\RuntimeException;
+use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 use Money\Money;
-use Money\UnknownCurrencyException;
 
 class MoneyElementRenderer
 {
@@ -17,19 +17,16 @@ class MoneyElementRenderer
      */
     public function render($value, $currencyString)
     {
-        try {
-            // Default to EUR currency if no currency is supplied
-            if ($currencyString == '') {
-                $currencyString = 'EUR';
-            }
-            $currency = new Currency($currencyString);
-        } catch (UnknownCurrencyException $e) {
+        if ($currencyString == '') {
+            $currencyString = 'EUR';
+        }
+        $currency = new Currency($currencyString);
+
+        if (false === (new ISOCurrencies())->contains($currency)){
             throw new RuntimeException("Unknown currency input '$currencyString'");
         }
 
-        $amount = $this->normalizeAmount($value);
-
-        return new Money($amount, $currency);
+        return new Money($this->normalizeAmount($value), $currency);
     }
 
     /**

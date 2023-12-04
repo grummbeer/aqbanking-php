@@ -21,13 +21,14 @@
         "juit/aqbanking-php": "*"
     },
     "require": {
-        "php": "^7.2|8.0.*|8.1.*",
-        "mathiasverraes/money": "1.2.0"
+        "php": "^8.1",
+        "ext-dom": "*",
+        "moneyphp/money": "^4.3"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.5",
         "mockery/mockery": "*",
-        "mikey179/vfsstream": "v1.2.0"
+        "mikey179/vfsstream": "^1.6"
     },
     "autoload": {
         "psr-4": {

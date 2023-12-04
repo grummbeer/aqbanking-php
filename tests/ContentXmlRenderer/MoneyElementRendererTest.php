@@ -151,7 +151,7 @@ class MoneyElementRendererTest extends TestCase
         $sut = new MoneyElementRenderer();
 
         $this->expectException('\AqBanking\RuntimeException');
-        $sut->render('1/100', 'XXX');
+        $sut->render('1/100', '___');
     }
 
     /**
