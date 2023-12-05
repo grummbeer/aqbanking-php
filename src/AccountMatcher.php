@@ -2,7 +2,6 @@
 
 namespace AqBanking;
 
-use AqBanking\Command\GetAccountsCommand;
 use AqBanking\Command\ListAccountsCommand;
 
 /**
@@ -25,14 +24,13 @@ class AccountMatcher
     {
         foreach ($this->array as $record) {
             if (
-                $account->getBankCode()->getString() == $record[ListAccountsCommand::BANK] &&
-                $account->getAccountNumber() == $record[ListAccountsCommand::NUMBER]
+                $account->getBankCode()->getString() === $record[ListAccountsCommand::BANK] &&
+                $account->getAccountNumber() === $record[ListAccountsCommand::NUMBER]
             ) {
-                return new ExistingAccount($account, $record[ListAccountsCommand::UNIQUE_ID] );
+                return new ExistingAccount($account, $record[ListAccountsCommand::UNIQUE_ID]);
             }
         }
 
         return null;
     }
 }
-

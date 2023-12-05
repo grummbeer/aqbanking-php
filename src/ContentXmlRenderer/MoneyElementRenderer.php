@@ -17,12 +17,12 @@ class MoneyElementRenderer
      */
     public function render($value, $currencyString)
     {
-        if ($currencyString == '') {
+        if ('' === $currencyString) {
             $currencyString = 'EUR';
         }
         $currency = new Currency($currencyString);
 
-        if (false === (new ISOCurrencies())->contains($currency)){
+        if (false === (new ISOCurrencies())->contains($currency)) {
             throw new RuntimeException("Unknown currency input '$currencyString'");
         }
 
@@ -38,10 +38,10 @@ class MoneyElementRenderer
      */
     private function normalizeAmount($value)
     {
-        list ($amount, $divisor) = $this->extractAmountAndDivisorAsString($value);
+        list($amount, $divisor) = $this->extractAmountAndDivisorAsString($value);
 
-        $multiplier = 100/(int)$divisor;
-        $normalizedAmount = (int)$amount * $multiplier;
+        $multiplier = 100 / (int) $divisor;
+        $normalizedAmount = (int) $amount * $multiplier;
 
         if ($this->isNormalizedValueBiassed($normalizedAmount)) {
             throw new RuntimeException(
@@ -49,29 +49,28 @@ class MoneyElementRenderer
             );
         }
 
-        return (int)$normalizedAmount;
+        return (int) $normalizedAmount;
     }
 
     /**
-     * @param $amountString
      * @return array
      * @throws \AqBanking\RuntimeException
      */
     private function extractAmountAndDivisorAsString($amountString)
     {
-        $matches = array();
+        $matches = [];
         if (preg_match('/^(?P<amount>(-){0,1}\d+)\/(?P<divisor>1(0)*)$/', $amountString, $matches)) {
             $amount = $matches['amount'];
             $divisor = $matches['divisor'];
 
-            return array($amount, $divisor);
+            return [$amount, $divisor];
         }
 
-        $matches = array();
+        $matches = [];
         if (preg_match('/^(?P<amount>(-){0,1}\d+)$/', $amountString, $matches)) {
             $amount = $matches['amount'];
 
-            return array($amount, '1');
+            return [$amount, '1'];
         }
 
         throw new RuntimeException("Unexpected amount input '$amountString'");
@@ -83,6 +82,6 @@ class MoneyElementRenderer
      */
     private function isNormalizedValueBiassed($normalizedAmount)
     {
-        return $normalizedAmount != (int)$normalizedAmount;
+        return $normalizedAmount !== (int) $normalizedAmount;
     }
 }

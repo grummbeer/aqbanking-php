@@ -18,7 +18,6 @@ class PinFileCreator
 
     /**
      * @param string $pin
-     * @param User $user
      * @return PinFileInterface
      */
     public function createFile($pin, User $user)
@@ -46,10 +45,10 @@ class PinFileCreator
      */
     private function assertIsWritableDir($pinFileDir)
     {
-        if (!is_dir($pinFileDir)) {
+        if (! is_dir($pinFileDir)) {
             throw new \InvalidArgumentException("PIN file dir '$pinFileDir' is not a directory");
         }
-        if (!is_writable($pinFileDir)) {
+        if (! is_writable($pinFileDir)) {
             throw new \InvalidArgumentException("PIN file dir '$pinFileDir' is not writable");
         }
     }
@@ -63,8 +62,7 @@ class PinFileCreator
     private function createFileContent($pin, $userId, $bankCodeString)
     {
         // The comments and line breaks seem to be mandatory for AqBanking to parse the file
-        return
-            '# This is a PIN file to be used with AqBanking' . PHP_EOL
+        return '# This is a PIN file to be used with AqBanking' . PHP_EOL
             . '# Please insert the PINs/passwords for the users below' . PHP_EOL
             . PHP_EOL
             . '# User "' . $userId . '" at "' . $bankCodeString . '"' . PHP_EOL

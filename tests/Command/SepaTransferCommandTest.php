@@ -4,10 +4,9 @@ namespace Tests\Command;
 
 use AqBanking\Account;
 use AqBanking\BankCode;
-use AqBanking\ContextFile;
 use AqBanking\Command\SepaTransferCommand;
-use Tests\Command\ShellCommandTestCase;
 use AqBanking\Command\ShellCommandExecutor\Result;
+use AqBanking\ContextFile;
 
 class SepaTransferCommandTest extends ShellCommandTestCase
 {
@@ -48,7 +47,7 @@ class SepaTransferCommandTest extends ShellCommandTestCase
         $shellCommandExecutorMock
             ->shouldReceive('execute')->once()
             ->with($expectedCommand)
-            ->andReturn(new Result(array(), array(), 0));
+            ->andReturn(new Result([], [], 0));
 
         $sut = new SepaTransferCommand($account, $contextFile, $pinFileMock);
         $sut->setShellCommandExecutor($shellCommandExecutorMock);
@@ -59,10 +58,10 @@ class SepaTransferCommandTest extends ShellCommandTestCase
             $purpose
         );
         $this->assertTrue(true);
-
     }
 
-    public function testAcceptsValidOutput() {
+    public function testAcceptsValidOutput()
+    {
         $accountNumber = '12345678';
         $bankCodeString = '23456789';
         $bankCode = new BankCode($bankCodeString);
@@ -77,16 +76,14 @@ class SepaTransferCommandTest extends ShellCommandTestCase
         $shellCommandExecutorMock = $this->getShellCommandExecutorMock();
         $shellCommandExecutorMock
             ->shouldReceive('execute')->once()
-            ->andReturn(new Result(array(), array('3:2022/01/06 05-26-00:aqhbci(42):jobtransferbase.c: 1036: Selecting PAIN format [urn:iso:std:iso:20022:tech:xsd:pain.001.001.03]'), 0));
+            ->andReturn(new Result([], ['3:2022/01/06 05-26-00:aqhbci(42):jobtransferbase.c: 1036: Selecting PAIN format [urn:iso:std:iso:20022:tech:xsd:pain.001.001.03]'], 0));
 
         $sut = new SepaTransferCommand($account, $contextFile, $pinFileMock);
         $sut->setShellCommandExecutor($shellCommandExecutorMock);
 
         // No exception has been thrown for a valid error output by aqbanking
         $this->assertTrue(true);
-
     }
-
 
     /**
      * @param string $pathToPinFile

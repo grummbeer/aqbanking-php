@@ -20,9 +20,7 @@ class Bank
     private $hbciVersion;
 
     /**
-     * @param BankCode $bankCode
      * @param string $hbciUrl
-     * @param HbciVersion|null $hbciVersion
      */
     public function __construct(BankCode $bankCode, $hbciUrl, HbciVersion $hbciVersion = null)
     {

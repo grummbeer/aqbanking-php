@@ -4,9 +4,9 @@ namespace Tests\Command;
 
 use AqBanking\Account;
 use AqBanking\BankCode;
-use AqBanking\ContextFile;
 use AqBanking\Command\RequestCommand;
 use AqBanking\Command\ShellCommandExecutor\Result;
+use AqBanking\ContextFile;
 
 class RequestCommandTest extends ShellCommandTestCase
 {
@@ -39,7 +39,7 @@ class RequestCommandTest extends ShellCommandTestCase
         $shellCommandExecutorMock
             ->shouldReceive('execute')->once()
             ->with($expectedCommand)
-            ->andReturn(new Result(array(), array(), 0));
+            ->andReturn(new Result([], [], 0));
 
         $sut = new RequestCommand($account, $contextFile, $pinFileMock);
         $sut->setShellCommandExecutor($shellCommandExecutorMock);
@@ -81,7 +81,7 @@ class RequestCommandTest extends ShellCommandTestCase
         $shellCommandExecutorMock
             ->shouldReceive('execute')->once()
             ->with($expectedCommand)
-            ->andReturn(new Result(array(), array(), 0));
+            ->andReturn(new Result([], [], 0));
 
         $sut = new RequestCommand($account, $contextFile, $pinFileMock);
         $sut->setShellCommandExecutor($shellCommandExecutorMock);
@@ -107,7 +107,7 @@ class RequestCommandTest extends ShellCommandTestCase
         $shellCommandExecutorMock = $this->getShellCommandExecutorMock();
         $shellCommandExecutorMock
             ->shouldReceive('execute')->once()
-            ->andReturn(new Result(array(), array('some unexpected output'), 0));
+            ->andReturn(new Result([], ['some unexpected output'], 0));
 
         $sut = new RequestCommand($account, $contextFile, $pinFileMock);
         $sut->setShellCommandExecutor($shellCommandExecutorMock);

@@ -2,7 +2,6 @@
 
 namespace AqBanking\Command;
 
-use AqBanking\Command\AddUserCommand\UserAlreadyExistsException;
 use AqBanking\Command\ShellCommandExecutor\DefectiveResultException;
 use AqBanking\Command\ShellCommandExecutor\ResultAnalyzer;
 use AqBanking\ExistingUser;

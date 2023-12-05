@@ -2,18 +2,16 @@
 
 namespace AqBanking\Command;
 
-use AqBanking\Command\AddUserCommand\UserAlreadyExistsException;
-use AqBanking\Command\ShellCommandExecutor\DefectiveResultException;
-use AqBanking\Command\ShellCommandExecutor\ResultAnalyzer;
-use AqBanking\User;
-
 class ListAccountsCommand extends AbstractCommand
 {
-    const RETURN_VAR_NOT_FOUND = 4;
+    public const RETURN_VAR_NOT_FOUND = 4;
 
-    const BANK = 'bank';
-    const NUMBER = 'number';
-    const UNIQUE_ID = 'uniqueId';
+    public const BANK = 'bank';
+
+    public const NUMBER = 'number';
+
+    public const UNIQUE_ID = 'uniqueId';
+
     /**
      * @return array
      */
@@ -26,7 +24,7 @@ class ListAccountsCommand extends AbstractCommand
 
         $result = $this->getShellCommandExecutor()->execute($shellCommand);
 
-        if ($result->getReturnVar() !== 0) {
+        if (0 !== $result->getReturnVar()) {
             throw new \RuntimeException(
                 'AqBanking exited with errors: ' . PHP_EOL
                 . implode(PHP_EOL, $result->getErrors())
@@ -34,8 +32,8 @@ class ListAccountsCommand extends AbstractCommand
         }
 
         $accounts = [];
-        foreach($result->getOutput() as $line) {
-            $parsed = sscanf($line, 'Account %d: Bank: %s Account Number: %s  SubAccountId: %s  Account Type: %s LocalUniqueId: %d' );
+        foreach ($result->getOutput() as $line) {
+            $parsed = sscanf($line, 'Account %d: Bank: %s Account Number: %s  SubAccountId: %s  Account Type: %s LocalUniqueId: %d');
             $accounts[] = [
                 self::BANK => $parsed[1],
                 self::NUMBER => $parsed[2],

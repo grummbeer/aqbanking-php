@@ -3,10 +3,10 @@
 namespace Tests\Command;
 
 use AqBanking\Bank;
-use AqBanking\User;
 use AqBanking\BankCode;
 use AqBanking\Command\AddUserCommand;
 use AqBanking\Command\ShellCommandExecutor\Result;
+use AqBanking\User;
 
 class AddUserCommandTest extends ShellCommandTestCase
 {
@@ -36,7 +36,7 @@ class AddUserCommandTest extends ShellCommandTestCase
         $shellCommandExecutorMock
             ->shouldReceive('execute')->once()
             ->with($expectedCommand)
-            ->andReturn(new Result(array(), array(), 0));
+            ->andReturn(new Result([], [], 0));
 
         $sut = new AddUserCommand();
         $sut->setShellCommandExecutor($shellCommandExecutorMock);
@@ -69,7 +69,7 @@ class AddUserCommandTest extends ShellCommandTestCase
         $shellCommandExecutorMock
             ->shouldReceive('execute')->once()
             ->with($expectedCommand)
-            ->andReturn(new Result(array(), array(), AddUserCommand::RETURN_VAR_USER_ALREADY_EXISTS));
+            ->andReturn(new Result([], [], AddUserCommand::RETURN_VAR_USER_ALREADY_EXISTS));
 
         $sut = new AddUserCommand();
         $sut->setShellCommandExecutor($shellCommandExecutorMock);
@@ -100,7 +100,7 @@ class AddUserCommandTest extends ShellCommandTestCase
         $shellCommandExecutorMock
             ->shouldReceive('execute')->once()
             ->with($expectedCommand)
-            ->andReturn(new Result(array(), array(), 127));
+            ->andReturn(new Result([], [], 127));
 
         $sut = new AddUserCommand();
         $sut->setShellCommandExecutor($shellCommandExecutorMock);

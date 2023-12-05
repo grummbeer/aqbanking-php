@@ -5,11 +5,6 @@ namespace AqBanking\Command;
 abstract class AbstractCommand
 {
     /**
-     * @var null|ShellCommandExecutor
-     */
-    private $shellCommandExecutor = null;
-
-    /**
      * @var string
      */
     protected $pathToAqBankingCLIBinary = 'aqbanking-cli';
@@ -25,23 +20,13 @@ abstract class AbstractCommand
     protected $pathToAqHBCIToolBinary = 'aqhbci-tool4';
 
     /**
-     * @param ShellCommandExecutor $shellCommandExecutor
+     * @var null|ShellCommandExecutor
      */
+    private $shellCommandExecutor = null;
+
     public function setShellCommandExecutor(ShellCommandExecutor $shellCommandExecutor)
     {
         $this->shellCommandExecutor = $shellCommandExecutor;
-    }
-
-    /**
-     * @return ShellCommandExecutor
-     */
-    protected function getShellCommandExecutor()
-    {
-        if (null === $this->shellCommandExecutor) {
-            $this->shellCommandExecutor = new ShellCommandExecutor();
-        }
-
-        return $this->shellCommandExecutor;
     }
 
     /**
@@ -66,5 +51,17 @@ abstract class AbstractCommand
     public function setPathToAqHBCIToolBinary($pathToAqHBCIToolBinary)
     {
         $this->pathToAqHBCIToolBinary = $pathToAqHBCIToolBinary;
+    }
+
+    /**
+     * @return ShellCommandExecutor
+     */
+    protected function getShellCommandExecutor()
+    {
+        if (null === $this->shellCommandExecutor) {
+            $this->shellCommandExecutor = new ShellCommandExecutor();
+        }
+
+        return $this->shellCommandExecutor;
     }
 }

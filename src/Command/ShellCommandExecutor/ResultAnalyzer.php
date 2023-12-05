@@ -4,7 +4,7 @@ namespace AqBanking\Command\ShellCommandExecutor;
 
 class ResultAnalyzer
 {
-    private $expectedOutputRegexes = array(
+    private $expectedOutputRegexes = [
         '/Automatically accepting valid new certificate/',
         '/Automatically accepting certificate/',
         '/The TLS connection was non-properly terminated./', // it usually automatically restarts, so no error
@@ -38,16 +38,15 @@ class ResultAnalyzer
         '/There is no old settings folder, need initial setup/',
         '/Account is new, adding/',
         '/^  .*$/', // everything starting with a space belongs to a previous message and is not an error (hopefully)
-        '/Selecting PAIN format.*$/'
-    );
+        '/Selecting PAIN format.*$/',
+    ];
 
     /**
-     * @param Result $result
      * @return bool
      */
     public function isDefectiveResult(Result $result)
     {
-        if ($result->getReturnVar() !== 0) {
+        if (0 !== $result->getReturnVar()) {
             return true;
         }
         if ($error = $this->resultHasErrors($result)) {
@@ -58,7 +57,7 @@ class ResultAnalyzer
 
     private function resultHasErrors(Result $result)
     {
-        if (count($result->getErrors()) == 1 && preg_match('/accepting valid new certificate/', $result->getErrors()[0])) {
+        if (1 === \count($result->getErrors()) && preg_match('/accepting valid new certificate/', $result->getErrors()[0])) {
             // When calling getsysid with wrong PIN, we don't get any error message.
             // The only significant aspect of the error is that the output is just one line with
             // "accepting valid new certificate"

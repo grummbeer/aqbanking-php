@@ -2,7 +2,6 @@
 
 namespace AqBanking\Command;
 
-use AqBanking\Command\AddUserCommand\UserAlreadyExistsException;
 use AqBanking\Command\ShellCommandExecutor\DefectiveResultException;
 use AqBanking\Command\ShellCommandExecutor\ResultAnalyzer;
 use AqBanking\ExistingUser;
@@ -10,7 +9,7 @@ use AqBanking\User;
 
 class AddUserFlagsCommand extends AbstractCommand
 {
-    const FLAG_SSL_QUIRK_IGNORE_PREMATURE_CLOSE = 'tlsIgnPrematureClose';
+    public const FLAG_SSL_QUIRK_IGNORE_PREMATURE_CLOSE = 'tlsIgnPrematureClose';
 
     /**
      * @deperacted no longer supported in AqBanking 6

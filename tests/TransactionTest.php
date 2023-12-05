@@ -2,11 +2,11 @@
 
 namespace Tests;
 
-use Money\Money;
-use Money\Currency;
 use AqBanking\Account;
 use AqBanking\BankCode;
 use AqBanking\Transaction;
+use Money\Currency;
+use Money\Money;
 use PHPUnit\Framework\TestCase;
 
 class TransactionTest extends TestCase

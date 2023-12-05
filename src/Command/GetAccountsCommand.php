@@ -4,14 +4,13 @@ namespace AqBanking\Command;
 
 use AqBanking\Command\ShellCommandExecutor\DefectiveResultException;
 use AqBanking\Command\ShellCommandExecutor\ResultAnalyzer;
-use AqBanking\PinFile\PinFileInterface as PinFile;
 use AqBanking\ExistingUser;
+use AqBanking\PinFile\PinFileInterface as PinFile;
 
 class GetAccountsCommand extends AbstractCommand
 {
     /**
      * @param User $user
-     * @param PinFile $pinFile
      * @throws ShellCommandExecutor\DefectiveResultException
      */
     public function execute(ExistingUser $user, PinFile $pinFile)

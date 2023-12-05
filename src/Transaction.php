@@ -156,11 +156,11 @@ class Transaction implements Arrayable
             'value' => [
                 'amount' => $this->getValue()->getAmount(),
                 'currency' => $this->getValue()->getCurrency()->getName(),
-                'priceUnit' => 100
+                'priceUnit' => 100,
             ],
             'valutaDate' => $this->getValutaDate() ? $this->getValutaDate()->format('Y-m-d') : null,
             'primaNota' => $this->getPrimaNota(),
-            'customerReference' => $this->getCustomerReference()
+            'customerReference' => $this->getCustomerReference(),
         ];
     }
 }

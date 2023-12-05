@@ -22,7 +22,6 @@ class User
     /**
      * @param string $userId
      * @param string $userName
-     * @param Bank $bank
      */
     public function __construct($userId, $userName, Bank $bank)
     {

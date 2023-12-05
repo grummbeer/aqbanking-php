@@ -6,7 +6,7 @@ use AqBanking\Command\ShellCommandExecutor\Result;
 
 class ShellCommandExecutor
 {
-    const ERROR_REPORTING = 'error';
+    public const ERROR_REPORTING = 'error';
 
     public function execute($shellCommand)
     {
@@ -14,12 +14,12 @@ class ShellCommandExecutor
             ' GWEN_LOGLEVEL=' . self::ERROR_REPORTING .
             ' AQHBCI_LOGLEVEL=' . self::ERROR_REPORTING .
             ' LANG=C ' . $shellCommand;
-        $output = array();
+        $output = [];
         $returnVar = null;
         $tempFile = tempnam(sys_get_temp_dir(), 'aqb-');
 
-//        FIXME: Make a configurable log file
-//        file_put_contents('/tmp/aqbanking.log', $shellCommand . PHP_EOL, FILE_APPEND);
+        //        FIXME: Make a configurable log file
+        //        file_put_contents('/tmp/aqbanking.log', $shellCommand . PHP_EOL, FILE_APPEND);
 
         exec($shellCommand . ' 2>' . $tempFile, $output, $returnVar);
 

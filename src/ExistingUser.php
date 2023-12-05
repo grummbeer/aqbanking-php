@@ -19,14 +19,9 @@ class ExistingUser
      */
     private $uniqueUserId;
 
-    /**
-     * @param string $userId
-     * @param string $userName
-     * @param Bank $bank
-     */
     public function __construct(User $user, int $uniqueUserId)
     {
-        $this->user= $user;
+        $this->user = $user;
         $this->uniqueUserId = $uniqueUserId;
     }
 
