@@ -32,7 +32,7 @@
     },
     "autoload": {
         "psr-4": {
-            "": "src/"
+            "AqBanking\\": "src/"
         }
     },
     "autoload-dev": {
