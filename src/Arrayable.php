@@ -4,5 +4,5 @@ namespace AqBanking;
 
 interface Arrayable
 {
-    public function toArray();
+    public function toArray(): array;
 }
