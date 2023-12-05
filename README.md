@@ -34,3 +34,11 @@ Dev Docs
 --------
 
 * [Setup PIN Tan Account in AqBanking (German)](https://www.aquamaniac.de/rdm/projects/aqbanking/wiki/SetupPinTan)
+
+### Coding standards
+
+Run the fixer before push.
+
+```shell
+./vendor/bin/ecs --fix
+```
