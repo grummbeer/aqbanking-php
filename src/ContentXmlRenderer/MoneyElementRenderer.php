@@ -32,6 +32,10 @@ class MoneyElementRenderer
     /**
      * @see https://github.com/janunger/aqbanking-php/issues/1
      *
+     * @FIXME You can't rely on floating point numbers. Use bcmath instead.
+     *        see https://0.30000000000000004.com/
+     *        php -r "var_dump(.1 + .2);" // float(0.30000000000000004)
+     *
      * @param string $value
      * @throws \AqBanking\RuntimeException
      * @return int
@@ -82,6 +86,6 @@ class MoneyElementRenderer
      */
     private function isNormalizedValueBiassed($normalizedAmount)
     {
-        return $normalizedAmount !== (int) $normalizedAmount;
+        return 0.00 !== fmod($normalizedAmount, 1);
     }
 }
