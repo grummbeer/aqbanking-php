@@ -1,26 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking;
 
 class ContextFile
 {
-    /**
-     * @var string
-     */
-    private $path;
-
-    /**
-     * @param string $path
-     */
-    public function __construct($path)
-    {
-        $this->path = $path;
+    public function __construct(
+        private readonly string $path
+    ) {
     }
 
-    /**
-     * @return string
-     */
-    public function getPath()
+    public function getPath(): string
     {
         return $this->path;
     }
