@@ -1,66 +1,42 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking;
 
 class Account implements AccountInterface, Arrayable
 {
-    /**
-     * @var BankCode
-     */
-    private $bankCode;
-
-    /**
-     * @var string
-     */
-    private $accountNumber;
-
-    /**
-     * @var string
-     */
-    private $accountHolderName;
-
-    /**
-     * @param string $accountNumber
-     * @param string $accountHolderName
-     * @return \AqBanking\Account
-     */
-    public function __construct(BankCode $bankCode, $accountNumber, $accountHolderName = '')
-    {
-        $this->bankCode = $bankCode;
-        $this->accountNumber = $accountNumber;
-        $this->accountHolderName = $accountHolderName;
+    public function __construct(
+        private readonly BankCode $bankCode,
+        private readonly string $accountNumber,
+        private readonly string $accountHolderName = '',
+    ) {
     }
 
-    /**
-     * @return BankCode
-     */
-    public function getBankCode()
+    public function getBankCode(): BankCode
     {
         return $this->bankCode;
     }
 
-    /**
-     * @return string
-     */
-    public function getAccountNumber()
+    public function getAccountNumber(): string
     {
         return $this->accountNumber;
     }
 
-    /**
-     * @return string
-     */
-    public function getAccountHolderName()
+    public function getAccountHolderName(): string
     {
         return $this->accountHolderName;
     }
 
-    public function toArray()
+    /**
+     * @return array<string, string>
+     */
+    public function toArray(): array
     {
         return [
             'bankCode' => $this->getBankCode()->getString(),
-            'accountHolderName' => $this->getAccountHolderName(),
             'accountNumber' => $this->getAccountNumber(),
+            'accountHolderName' => $this->getAccountHolderName(),
         ];
     }
 }

@@ -1,21 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking;
 
 interface AccountInterface
 {
-    /**
-     * @return BankCode
-     */
-    public function getBankCode();
+    public function getBankCode(): BankCode;
 
-    /**
-     * @return string
-     */
-    public function getAccountHolderName();
+    public function getAccountHolderName(): string;
 
-    /**
-     * @return string
-     */
-    public function getAccountNumber();
+    public function getAccountNumber(): string;
 }
