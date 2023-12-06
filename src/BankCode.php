@@ -1,26 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking;
 
 class BankCode
 {
-    /**
-     * @var string
-     */
-    private $bankCode;
-
-    /**
-     * @param string $bankCode
-     */
-    public function __construct($bankCode)
-    {
-        $this->bankCode = $bankCode;
+    public function __construct(
+        private readonly string $bankCode
+    ) {
     }
 
-    /**
-     * @return string
-     */
-    public function getString()
+    public function getString(): string
     {
         return $this->bankCode;
     }
