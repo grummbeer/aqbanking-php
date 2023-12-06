@@ -1,54 +1,39 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking\Command\ShellCommandExecutor;
 
 class Result
 {
     /**
-     * @var array
+     * @param array<string> $output
+     * @param array<string> $errors
      */
-    private $output;
-
-    /**
-     * @var array
-     */
-    private $errors;
-
-    /**
-     * @var int
-     */
-    private $returnVar;
-
-    /**
-     * @param int $returnVar
-     */
-    public function __construct(array $output, array $errors, $returnVar)
-    {
-        $this->output = $output;
-        $this->errors = $errors;
-        $this->returnVar = $returnVar;
+    public function __construct(
+        private readonly array $output,
+        private readonly array $errors,
+        private readonly int $returnVar
+    ) {
     }
 
     /**
-     * @return array
+     * @return array<string>
      */
-    public function getOutput()
+    public function getOutput(): array
     {
         return $this->output;
     }
 
     /**
-     * @return array
+     * @return array<string>
      */
-    public function getErrors()
+    public function getErrors(): array
     {
         return $this->errors;
     }
 
-    /**
-     * @return int
-     */
-    public function getReturnVar()
+    public function getReturnVar(): int
     {
         return $this->returnVar;
     }

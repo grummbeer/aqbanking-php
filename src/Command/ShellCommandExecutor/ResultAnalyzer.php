@@ -1,10 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking\Command\ShellCommandExecutor;
 
 class ResultAnalyzer
 {
-    private $expectedOutputRegexes = [
+    /**
+     * @var array<string>
+     */
+    private array $expectedOutputRegexes = [
         '/Automatically accepting valid new certificate/',
         '/Automatically accepting certificate/',
         '/The TLS connection was non-properly terminated./', // it usually automatically restarts, so no error
@@ -41,21 +46,18 @@ class ResultAnalyzer
         '/Selecting PAIN format.*$/',
     ];
 
-    /**
-     * @return bool
-     */
-    public function isDefectiveResult(Result $result)
+    public function isDefectiveResult(Result $result): bool
     {
         if (0 !== $result->getReturnVar()) {
             return true;
         }
-        if ($error = $this->resultHasErrors($result)) {
+        if ($this->resultHasErrors($result)) {
             return true;
         }
         return false;
     }
 
-    private function resultHasErrors(Result $result)
+    private function resultHasErrors(Result $result): bool
     {
         if (1 === \count($result->getErrors()) && preg_match('/accepting valid new certificate/', $result->getErrors()[0])) {
             // When calling getsysid with wrong PIN, we don't get any error message.
@@ -71,7 +73,7 @@ class ResultAnalyzer
         return false;
     }
 
-    private function isErrorMessage($line)
+    private function isErrorMessage(string $line): bool
     {
         foreach ($this->expectedOutputRegexes as $regex) {
             if (preg_match($regex, $line)) {
