@@ -1,20 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use AqBanking\Account;
 use AqBanking\BankCode;
 use AqBanking\ContextXmlRenderer;
 use AqBanking\Transaction;
+use Exception;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \AqBanking\ContextXmlRenderer
+ * @uses \AqBanking\ContentXmlRenderer\MoneyElementRenderer
+ */
 class ContextXmlRendererTest extends TestCase
 {
     /**
-     * @test
+     * @throws Exception
      */
-    public function can_render_transfers()
+    public function testCanRenderTransfers()
     {
         $this->markTestSkipped('temporarily skipped due the unclear behaviour of Account<>getTransaction');
 
@@ -42,9 +49,9 @@ class ContextXmlRendererTest extends TestCase
     }
 
     /**
-     * @test
+     * @throws Exception
      */
-    public function can_render_transactions()
+    public function testCanRenderTransactions()
     {
         $this->markTestSkipped('temporarily skipped due the unclear behaviour of Account<>getTransaction');
 
@@ -72,9 +79,9 @@ class ContextXmlRendererTest extends TestCase
     }
 
     /**
-     * @test
+     * @throws Exception
      */
-    public function throws_exception_if_data_contains_reserved_char()
+    public function testThrowsExceptionIfDataContainsReservedChar()
     {
         $fixture = file_get_contents(__DIR__ . '/fixtures/test_context_file_transactions_with_reserved_char.xml');
         $domDocument = new \DOMDocument();
@@ -87,9 +94,9 @@ class ContextXmlRendererTest extends TestCase
     }
 
     /**
-     * @test
+     * @throws Exception
      */
-    public function throws_exception_if_amount_is_malformed()
+    public function testThrowsExceptionIfAmountIsMalformed()
     {
         $fixture = file_get_contents(__DIR__ . '/fixtures/test_context_file_transactions_with_malformed_amount.xml');
         $domDocument = new \DOMDocument();
