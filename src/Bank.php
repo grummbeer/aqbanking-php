@@ -1,54 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking;
 
 class Bank
 {
-    /**
-     * @var BankCode
-     */
-    private $bankCode;
-
-    /**
-     * @var string
-     */
-    private $hbciUrl;
-
-    /**
-     * @var HbciVersion|null
-     */
-    private $hbciVersion;
-
-    /**
-     * @param string $hbciUrl
-     */
-    public function __construct(BankCode $bankCode, $hbciUrl, HbciVersion $hbciVersion = null)
-    {
-        $this->bankCode = $bankCode;
-        $this->hbciUrl = $hbciUrl;
-        $this->hbciVersion = $hbciVersion;
+    public function __construct(
+        private readonly BankCode $bankCode,
+        private readonly string $hbciUrl,
+        private readonly ?HbciVersion $hbciVersion = null
+    ) {
     }
 
-    /**
-     * @return BankCode
-     */
-    public function getBankCode()
+    public function getBankCode(): BankCode
     {
         return $this->bankCode;
     }
 
-    /**
-     * @return string
-     */
-    public function getHbciUrl()
+    public function getHbciUrl(): string
     {
         return $this->hbciUrl;
     }
 
-    /**
-     * @return HbciVersion|null
-     */
-    public function getHbciVersion()
+    public function getHbciVersion(): ?HbciVersion
     {
         return $this->hbciVersion;
     }
