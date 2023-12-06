@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking\ContentXmlRenderer;
 
 use AqBanking\RuntimeException;
@@ -10,12 +12,9 @@ use Money\Money;
 class MoneyElementRenderer
 {
     /**
-     * @param string $value
-     * @param string $currencyString
-     * @throws \AqBanking\RuntimeException
-     * @return Money
+     * @throws RuntimeException
      */
-    public function render($value, $currencyString)
+    public function render(string $value, string $currencyString): Money
     {
         if ('' === $currencyString) {
             $currencyString = 'EUR';
@@ -36,11 +35,9 @@ class MoneyElementRenderer
      *        see https://0.30000000000000004.com/
      *        php -r "var_dump(.1 + .2);" // float(0.30000000000000004)
      *
-     * @param string $value
-     * @throws \AqBanking\RuntimeException
-     * @return int
+     * @throws RuntimeException
      */
-    private function normalizeAmount($value)
+    private function normalizeAmount(string $value): int
     {
         list($amount, $divisor) = $this->extractAmountAndDivisorAsString($value);
 
@@ -57,10 +54,11 @@ class MoneyElementRenderer
     }
 
     /**
-     * @return array
-     * @throws \AqBanking\RuntimeException
+     * @throws RuntimeException
+     *
+     * @return string[]
      */
-    private function extractAmountAndDivisorAsString($amountString)
+    private function extractAmountAndDivisorAsString(string $amountString): array
     {
         $matches = [];
         if (preg_match('/^(?P<amount>(-){0,1}\d+)\/(?P<divisor>1(0)*)$/', $amountString, $matches)) {
@@ -80,11 +78,7 @@ class MoneyElementRenderer
         throw new RuntimeException("Unexpected amount input '$amountString'");
     }
 
-    /**
-     * @param mixed $normalizedAmount
-     * @return bool
-     */
-    private function isNormalizedValueBiassed($normalizedAmount)
+    private function isNormalizedValueBiassed(float|int $normalizedAmount): bool
     {
         return 0.00 !== fmod($normalizedAmount, 1);
     }
