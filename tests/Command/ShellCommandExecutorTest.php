@@ -5,9 +5,13 @@ namespace Tests\Command;
 use AqBanking\Command\ShellCommandExecutor;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \AqBanking\Command\ShellCommandExecutor
+ * @uses \AqBanking\Command\ShellCommandExecutor\Result
+ */
 class ShellCommandExecutorTest extends TestCase
 {
-    public function testCanExecuteCommand()
+    public function testCanExecuteCommand(): void
     {
         $sut = new ShellCommandExecutor();
 
@@ -18,7 +22,7 @@ class ShellCommandExecutorTest extends TestCase
         $this->assertEquals(0, $result->getReturnVar());
     }
 
-    public function testCanTellAboutErrors()
+    public function testCanTellAboutErrors(): void
     {
         $sut = new ShellCommandExecutor();
 
