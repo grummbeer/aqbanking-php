@@ -1,28 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking\PinFile;
 
 use AqBanking\User;
 
 class PinFile implements PinFileInterface
 {
-    /**
-     * @var string
-     */
-    private $dir;
-
-    /**
-     * @var User
-     */
-    private $user;
-
-    public function __construct($dir, User $user)
-    {
-        $this->user = $user;
-        $this->dir = $dir;
+    public function __construct(
+        private readonly string $dir,
+        private readonly User $user
+    ) {
     }
 
-    public function getFileName()
+    public function getFileName(): string
     {
         return sprintf(
             'pinfile_%s_%s',
@@ -31,7 +23,7 @@ class PinFile implements PinFileInterface
         );
     }
 
-    public function getPath()
+    public function getPath(): string
     {
         return $this->dir . '/' . $this->getFileName();
     }

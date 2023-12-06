@@ -1,16 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking\PinFile;
 
 interface PinFileInterface
 {
-    /**
-     * @return string
-     */
-    public function getFileName();
+    public function getFileName(): string;
 
-    /**
-     * @return string
-     */
-    public function getPath();
+    public function getPath(): string;
 }

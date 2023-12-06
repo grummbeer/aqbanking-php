@@ -1,26 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking\PinFile;
 
 use AqBanking\User;
+use InvalidArgumentException;
 
 class PinFileCreator
 {
-    /**
-     * @var string
-     */
-    private $pinFileDir;
-
-    public function __construct($pinFileDir)
-    {
-        $this->pinFileDir = $pinFileDir;
+    public function __construct(
+        private readonly string $pinFileDir
+    ) {
     }
 
     /**
-     * @param string $pin
-     * @return PinFileInterface
+     * @throws InvalidArgumentException
      */
-    public function createFile($pin, User $user)
+    public function createFile(string $pin, User $user): PinFileInterface
     {
         $pinFileDir = $this->pinFileDir;
 
@@ -40,26 +37,19 @@ class PinFileCreator
     }
 
     /**
-     * @param string $pinFileDir
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function assertIsWritableDir($pinFileDir)
+    private function assertIsWritableDir(string $pinFileDir): void
     {
         if (! is_dir($pinFileDir)) {
-            throw new \InvalidArgumentException("PIN file dir '$pinFileDir' is not a directory");
+            throw new InvalidArgumentException("PIN file dir '$pinFileDir' is not a directory");
         }
         if (! is_writable($pinFileDir)) {
-            throw new \InvalidArgumentException("PIN file dir '$pinFileDir' is not writable");
+            throw new InvalidArgumentException("PIN file dir '$pinFileDir' is not writable");
         }
     }
 
-    /**
-     * @param string $pin
-     * @param string $userId
-     * @param string $bankCodeString
-     * @return string
-     */
-    private function createFileContent($pin, $userId, $bankCodeString)
+    private function createFileContent(string $pin, string $userId, string $bankCodeString): string
     {
         // The comments and line breaks seem to be mandatory for AqBanking to parse the file
         return '# This is a PIN file to be used with AqBanking' . PHP_EOL
