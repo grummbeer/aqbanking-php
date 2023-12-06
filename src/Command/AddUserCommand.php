@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking\Command;
 
 use AqBanking\Command\AddUserCommand\UserAlreadyExistsException;
@@ -15,7 +17,7 @@ class AddUserCommand extends AbstractCommand
      * @throws AddUserCommand\UserAlreadyExistsException
      * @throws ShellCommandExecutor\DefectiveResultException
      */
-    public function execute(User $user)
+    public function execute(User $user): void
     {
         $shellCommand =
             $this->pathToAqHBCIToolBinary
