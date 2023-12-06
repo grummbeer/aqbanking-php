@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use AqBanking\Account;
@@ -9,12 +11,14 @@ use Money\Currency;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \AqBanking\Transaction
+ * @uses \AqBanking\Account
+ * @uses \AqBanking\BankCode
+ */
 class TransactionTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function can_instantiate_with_valid_values()
+    public function testTransaction(): void
     {
         $localAccount = new Account(new BankCode('50951469'), '12345678');
         $remoteAccount = new Account(new BankCode('50951469'), '87654321');
