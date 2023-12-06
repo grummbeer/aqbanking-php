@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking\Command;
 
 use AqBanking\Command\CheckAqBankingCommand\AqBankingNotRespondingException;
@@ -7,13 +9,20 @@ use AqBanking\Command\CheckAqBankingCommand\AqBankingVersionTooOldException;
 
 class CheckAqBankingCommand extends AbstractCommand
 {
-    public function execute()
+    /**
+     * @throws AqBankingVersionTooOldException
+     * @throws AqBankingNotRespondingException
+     */
+    public function execute(): void
     {
         $this->assertAqBankingResponds();
         $this->assertAqBankingIsAppropriateVersion();
     }
 
-    private function assertAqBankingResponds()
+    /**
+     * @throws AqBankingNotRespondingException
+     */
+    private function assertAqBankingResponds(): void
     {
         $shellCommand = $this->pathToAqBankingCLIBinary . ' --help';
         $result = $this->getShellCommandExecutor()->execute($shellCommand);
@@ -23,7 +32,10 @@ class CheckAqBankingCommand extends AbstractCommand
         }
     }
 
-    private function assertAqBankingIsAppropriateVersion()
+    /**
+     * @throws AqBankingVersionTooOldException
+     */
+    private function assertAqBankingIsAppropriateVersion(): void
     {
         $minVersion = '5.0.24';
         $shellCommand = $this->pathToAqBankingConfigBinary . ' --vstring';
