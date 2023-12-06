@@ -28,7 +28,8 @@
     "require-dev": {
         "phpunit/phpunit": "^8.5",
         "mockery/mockery": "*",
-        "mikey179/vfsstream": "^1.6"
+        "mikey179/vfsstream": "^1.6",
+        "symplify/easy-coding-standard": "^12.0"
     },
     "autoload": {
         "psr-4": {

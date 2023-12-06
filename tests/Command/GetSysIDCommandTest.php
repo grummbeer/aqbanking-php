@@ -3,12 +3,12 @@
 namespace Tests\Command;
 
 use AqBanking\Bank;
-use AqBanking\User;
 use AqBanking\BankCode;
-use AqBanking\ExistingUser;
-use AqBanking\PinFile\PinFile;
 use AqBanking\Command\GetSysIDCommand;
 use AqBanking\Command\ShellCommandExecutor\Result;
+use AqBanking\ExistingUser;
+use AqBanking\PinFile\PinFile;
+use AqBanking\User;
 
 class GetSysIDCommandTest extends ShellCommandTestCase
 {
@@ -40,7 +40,7 @@ class GetSysIDCommandTest extends ShellCommandTestCase
         $shellCommandExecutorMock
             ->shouldReceive('execute')->once()
             ->with($expectedCommand)
-            ->andReturn(new Result(array(), array(), 0));
+            ->andReturn(new Result([], [], 0));
 
         $sut = new GetSysIDCommand();
         $sut->setShellCommandExecutor($shellCommandExecutorMock);
@@ -79,7 +79,7 @@ class GetSysIDCommandTest extends ShellCommandTestCase
         $shellCommandExecutorMock
             ->shouldReceive('execute')->once()
             ->with($expectedCommand)
-            ->andReturn(new Result(array(), array(), 1));
+            ->andReturn(new Result([], [], 1));
 
         $sut = new GetSysIDCommand();
         $sut->setShellCommandExecutor($shellCommandExecutorMock);

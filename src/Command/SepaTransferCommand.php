@@ -3,14 +3,13 @@
 namespace AqBanking\Command;
 
 use AqBanking\Account;
+use AqBanking\Command\ShellCommandExecutor\DefectiveResultException;
+use AqBanking\Command\ShellCommandExecutor\ResultAnalyzer;
 use AqBanking\ContextFile;
 use AqBanking\PinFile\PinFile;
-use AqBanking\Command\AbstractCommand;
-use AqBanking\Command\ShellCommandExecutor\ResultAnalyzer;
-use AqBanking\Command\ShellCommandExecutor\DefectiveResultException;
 
-class SepaTransferCommand extends AbstractCommand {
-
+class SepaTransferCommand extends AbstractCommand
+{
     /**
      * @var Account
      */
@@ -26,19 +25,12 @@ class SepaTransferCommand extends AbstractCommand {
      */
     private $pinFile;
 
-    /**
-     * @param Account $account
-     * @param ContextFile $contextFile
-     * @param PinFile $pinFile
-     */
     public function __construct(Account $account, ContextFile $contextFile, PinFile $pinFile)
     {
         $this->account = $account;
         $this->contextFile = $contextFile;
         $this->pinFile = $pinFile;
     }
-
-
 
     /**
      * @param string $rname remote name
@@ -82,7 +74,7 @@ class SepaTransferCommand extends AbstractCommand {
             . " --account=" . escapeshellcmd($this->account->getAccountNumber())
             . " --ctxfile=" . escapeshellcmd($this->contextFile->getPath())
             . " --rname='" . escapeshellcmd($rname) . "'"
-            . " --riban=" .  escapeshellcmd($riban)
+            . " --riban=" . escapeshellcmd($riban)
             . " --value=" . escapeshellcmd($value)
             . " --purpose='" . escapeshellcmd($purpose) . "'"
         ;

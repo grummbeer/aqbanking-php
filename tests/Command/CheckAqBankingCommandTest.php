@@ -2,9 +2,9 @@
 
 namespace Tests\Command;
 
-use PHPUnit\Framework\TestCase;
 use AqBanking\Command\CheckAqBankingCommand;
 use AqBanking\Command\ShellCommandExecutor\Result;
+use PHPUnit\Framework\TestCase;
 
 class CheckAqBankingCommandTest extends TestCase
 {
@@ -14,11 +14,11 @@ class CheckAqBankingCommandTest extends TestCase
         $shellCommandExecutorMock
             ->shouldReceive('execute')
             ->with('aqbanking-cli --help')
-            ->andReturn(new Result(array(), array(), 0));
+            ->andReturn(new Result([], [], 0));
         $shellCommandExecutorMock
             ->shouldReceive('execute')
             ->with('aqbanking-config --vstring')
-            ->andReturn(new Result(array('5.0.24'), array(), 0));
+            ->andReturn(new Result(['5.0.24'], [], 0));
 
         $sut = new CheckAqBankingCommand();
         $sut->setShellCommandExecutor($shellCommandExecutorMock);
@@ -34,7 +34,7 @@ class CheckAqBankingCommandTest extends TestCase
         $shellCommandExecutorMock
             ->shouldReceive('execute')->once()
             ->with('aqbanking-cli --help')
-            ->andReturn(new Result(array(), array(), 127));
+            ->andReturn(new Result([], [], 127));
 
         $sut = new CheckAqBankingCommand();
         $sut->setShellCommandExecutor($shellCommandExecutorMock);
@@ -48,11 +48,11 @@ class CheckAqBankingCommandTest extends TestCase
         $shellCommandExecutorMock
             ->shouldReceive('execute')
             ->with('aqbanking-cli --help')
-            ->andReturn(new Result(array(), array(), 0));
+            ->andReturn(new Result([], [], 0));
         $shellCommandExecutorMock
             ->shouldReceive('execute')
             ->with('aqbanking-config --vstring')
-            ->andReturn(new Result(array(), array(), 127));
+            ->andReturn(new Result([], [], 127));
 
         $sut = new CheckAqBankingCommand();
         $sut->setShellCommandExecutor($shellCommandExecutorMock);
@@ -66,11 +66,11 @@ class CheckAqBankingCommandTest extends TestCase
         $shellCommandExecutorMock
             ->shouldReceive('execute')
             ->with('aqbanking-cli --help')
-            ->andReturn(new Result(array(), array(), 0));
+            ->andReturn(new Result([], [], 0));
         $shellCommandExecutorMock
             ->shouldReceive('execute')
             ->with('aqbanking-config --vstring')
-            ->andReturn(new Result(array('5.0.23'), array(), 0));
+            ->andReturn(new Result(['5.0.23'], [], 0));
 
         $sut = new CheckAqBankingCommand();
         $sut->setShellCommandExecutor($shellCommandExecutorMock);

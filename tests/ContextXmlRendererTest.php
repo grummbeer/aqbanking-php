@@ -2,12 +2,12 @@
 
 namespace Tests;
 
-use Money\Money;
 use AqBanking\Account;
 use AqBanking\BankCode;
-use AqBanking\Transaction;
-use PHPUnit\Framework\TestCase;
 use AqBanking\ContextXmlRenderer;
+use AqBanking\Transaction;
+use Money\Money;
+use PHPUnit\Framework\TestCase;
 
 class ContextXmlRendererTest extends TestCase
 {
@@ -25,7 +25,7 @@ class ContextXmlRendererTest extends TestCase
         $sut = new ContextXmlRenderer($domDocument);
 
         $localAccount = new Account(new BankCode('12345678'), '404072100', 'HARALD MUSTERMANN');
-        $expectedTransactions = array(
+        $expectedTransactions = [
             new Transaction(
                 $localAccount,
                 new Account(new BankCode(''), '', "WARENHAUS GMBH"),
@@ -36,7 +36,7 @@ class ContextXmlRendererTest extends TestCase
                 Money::EUR(2174),
                 '',
                 ''
-            ));
+            )];
 
         $this->assertEquals($expectedTransactions, $sut->getTransactions());
     }
@@ -55,7 +55,7 @@ class ContextXmlRendererTest extends TestCase
         $sut = new ContextXmlRenderer($domDocument);
 
         $localAccount = new Account(new BankCode('32151229'), '12112345');
-        $expectedTransactions = array(
+        $expectedTransactions = [
             new Transaction(
                 $localAccount,
                 new Account(new BankCode('MALADE51KOB'), 'DE62570501200000012345', 'Sehr sehr langer Kontoinhab'),
@@ -66,10 +66,9 @@ class ContextXmlRendererTest extends TestCase
                 Money::EUR(-1111),
                 '97186',
                 'KREW+'
-            ));
+            )];
 
         $this->assertEquals($expectedTransactions, $sut->getTransactions());
-
     }
 
     /**

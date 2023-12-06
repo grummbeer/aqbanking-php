@@ -40,7 +40,7 @@ class SetAppropriateITanModeCommand extends AbstractCommand
         $requiredHbciVersion = $this->user->getBank()->getHbciVersion();
         $highestVersionAvailable = $this->findHighestAvailableHbciVersion($result);
 
-        if (!$highestVersionAvailable) {
+        if (! $highestVersionAvailable) {
             throw new DefectiveResultException(
                 'AqBanking could not find any available HBCI version',
                 0,
@@ -63,7 +63,6 @@ class SetAppropriateITanModeCommand extends AbstractCommand
     }
 
     /**
-     * @param Result $result
      * @return null|HbciVersion
      */
     private function findHighestAvailableHbciVersion(Result $result)
@@ -71,9 +70,9 @@ class SetAppropriateITanModeCommand extends AbstractCommand
         $highestVersionAvailable = null;
 
         foreach ($result->getOutput() as $line) {
-            $matches = array();
+            $matches = [];
             $regex = '/^- (?P<code>\d+) \(.+\/(V(?P<version>\d+))\/.+\).*\[available( and selected)?\]$/';
-            if (!preg_match($regex, $line, $matches)) {
+            if (! preg_match($regex, $line, $matches)) {
                 continue;
             }
             $version = new HbciVersion($matches['version'], $matches['code']);
@@ -86,7 +85,6 @@ class SetAppropriateITanModeCommand extends AbstractCommand
     }
 
     /**
-     * @param HbciVersion $highestVersionAvailable
      * @throws DefectiveResultException
      */
     private function setHbciVersion(HbciVersion $highestVersionAvailable)
@@ -100,7 +98,7 @@ class SetAppropriateITanModeCommand extends AbstractCommand
 
         $result = $this->getShellCommandExecutor()->execute($shellCommand);
 
-        if ($result->getReturnVar() !== 0 || count($result->getErrors()) > 0) {
+        if (0 !== $result->getReturnVar() || \count($result->getErrors()) > 0) {
             throw new DefectiveResultException(
                 'Unexpected result on setting the user\'s HBCI version',
                 0,

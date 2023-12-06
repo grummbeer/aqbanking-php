@@ -3,7 +3,6 @@
 namespace AqBanking;
 
 use AqBanking\ContentXmlRenderer\MoneyElementRenderer;
-use Money\Currency;
 use Money\Money;
 
 class ContextXmlRenderer
@@ -36,7 +35,7 @@ class ContextXmlRenderer
     public function getTransactions()
     {
         $transactionNodes = $this->domDocument->getElementsByTagName('transaction');
-        $transactions = array();
+        $transactions = [];
 
         foreach ($transactionNodes as $transactionNode) {
             $localBankCode = $this->renderMultiLineElement(
@@ -96,7 +95,7 @@ class ContextXmlRenderer
     public function getBalances()
     {
         $balanceNodes = $this->domDocument->getElementsByTagName('balance');
-        $balances = array();
+        $balances = [];
 
         /**
          * @var DOMElement $balanceNode
@@ -113,13 +112,12 @@ class ContextXmlRenderer
     }
 
     /**
-     * @param \DOMNodeList $nodes
      * @throws \RuntimeException
      * @return string
      */
     private function renderMultiLineElement(\DOMNodeList $nodes)
     {
-        $lines = array();
+        $lines = [];
         foreach ($nodes as $node) {
             $line = trim($node->nodeValue);
             if (false !== strpos($line, '|')) {
@@ -132,14 +130,12 @@ class ContextXmlRenderer
     }
 
     /**
-     * @param \DOMNode $node
-     * @param \DOMNode $node
      * @throws \RuntimeException
      * @return \DateTime
      */
     private function renderDateElement(\DOMNode $node = null)
     {
-        if(!$node) {
+        if (! $node) {
             return null;
         }
 
@@ -154,7 +150,6 @@ class ContextXmlRenderer
     }
 
     /**
-     * @param \DOMNode $node
      * @return Money
      * @throws \Exception
      */
@@ -168,7 +163,6 @@ class ContextXmlRenderer
     }
 
     /**
-     * @param \DOMNodeList $valueNodes
      * @return string
      */
     private function renderSimpleTextElement(\DOMNodeList $valueNodes)

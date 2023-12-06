@@ -20,8 +20,6 @@ class Result
     private $returnVar;
 
     /**
-     * @param array $output
-     * @param array $errors
      * @param int $returnVar
      */
     public function __construct(array $output, array $errors, $returnVar)

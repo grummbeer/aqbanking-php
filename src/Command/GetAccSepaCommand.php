@@ -2,10 +2,8 @@
 
 namespace AqBanking\Command;
 
-use AqBanking\Command\AddUserCommand\UserAlreadyExistsException;
 use AqBanking\Command\ShellCommandExecutor\DefectiveResultException;
 use AqBanking\Command\ShellCommandExecutor\ResultAnalyzer;
-use AqBanking\Account;
 use AqBanking\ExistingAccount;
 use AqBanking\PinFile\PinFile;
 

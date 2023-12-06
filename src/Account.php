@@ -20,7 +20,6 @@ class Account implements AccountInterface, Arrayable
     private $accountHolderName;
 
     /**
-     * @param BankCode $bankCode
      * @param string $accountNumber
      * @param string $accountHolderName
      * @return \AqBanking\Account
@@ -61,7 +60,7 @@ class Account implements AccountInterface, Arrayable
         return [
             'bankCode' => $this->getBankCode()->getString(),
             'accountHolderName' => $this->getAccountHolderName(),
-            'accountNumber' => $this->getAccountNumber()
+            'accountNumber' => $this->getAccountNumber(),
         ];
     }
 }

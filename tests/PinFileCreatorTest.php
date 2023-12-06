@@ -3,11 +3,11 @@
 namespace Tests;
 
 use AqBanking\Bank;
-use AqBanking\User;
 use AqBanking\BankCode;
+use AqBanking\PinFile\PinFileCreator;
+use AqBanking\User;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
-use AqBanking\PinFile\PinFileCreator;
 
 class PinFileCreatorTest extends TestCase
 {

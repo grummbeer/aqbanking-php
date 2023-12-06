@@ -19,13 +19,9 @@ class ExistingAccount
      */
     private $uniqueAccountId;
 
-    /**
-     * @param Account $account
-     * @param int $uniqueAccountId
-     */
     public function __construct(Account $account, int $uniqueAccountId)
     {
-        $this->user= $account;
+        $this->user = $account;
         $this->uniqueAccountId = $uniqueAccountId;
     }
 

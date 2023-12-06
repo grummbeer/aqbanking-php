@@ -64,7 +64,7 @@ class Balance implements Arrayable
                 'priceUnit' => 100,
                 'currency' => $this->getValue()->getCurrency()->getCode(),
             ],
-            'date' => $this->getDate()->format('Y-m-d')
+            'date' => $this->getDate()->format('Y-m-d'),
         ];
     }
 }

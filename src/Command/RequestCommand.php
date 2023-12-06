@@ -25,11 +25,6 @@ class RequestCommand extends AbstractCommand
      */
     private $pinFile;
 
-    /**
-     * @param Account $account
-     * @param ContextFile $contextFile
-     * @param PinFile $pinFile
-     */
     public function __construct(Account $account, ContextFile $contextFile, PinFile $pinFile)
     {
         $this->account = $account;
@@ -38,7 +33,6 @@ class RequestCommand extends AbstractCommand
     }
 
     /**
-     * @param \DateTime $fromDate
      * @throws ShellCommandExecutor\DefectiveResultException
      */
     public function execute(\DateTime $fromDate = null)
@@ -59,7 +53,6 @@ class RequestCommand extends AbstractCommand
     }
 
     /**
-     * @param \DateTime $fromDate
      * @return string
      */
     private function getShellCommand(\DateTime $fromDate = null)

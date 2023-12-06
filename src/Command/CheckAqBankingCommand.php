@@ -31,13 +31,15 @@ class CheckAqBankingCommand extends AbstractCommand
 
         if (0 !== $result->getReturnVar()) {
             throw new AqBankingVersionTooOldException(
-                'Required version: ' . $minVersion . ' - present version: unknown');
+                'Required version: ' . $minVersion . ' - present version: unknown'
+            );
         }
 
         $versionString = $result->getOutput()[0];
         if (version_compare($versionString, $minVersion) < 0) {
             throw new AqBankingVersionTooOldException(
-                'Required version: ' . $minVersion . ' - present version: ' . $versionString);
+                'Required version: ' . $minVersion . ' - present version: ' . $versionString
+            );
         }
     }
 }

@@ -2,10 +2,10 @@
 
 namespace Tests\Command;
 
+use AqBanking\Command\RenderContextFileToXMLCommand;
+use AqBanking\Command\ShellCommandExecutor\Result;
 use AqBanking\ContextFile;
 use PHPUnit\Framework\TestCase;
-use AqBanking\Command\ShellCommandExecutor\Result;
-use AqBanking\Command\RenderContextFileToXMLCommand;
 
 class RenderContextFileToXMLCommandTest extends TestCase
 {
@@ -21,24 +21,22 @@ class RenderContextFileToXMLCommandTest extends TestCase
             . ' export'
             . ' --ctxfile=' . $contextFile->getPath()
             . ' --exporter=xmldb';
-        $output = array(
+        $output = [
             '<?xml version="1.0" encoding="utf-8"?>',
             '<ImExporterContext type="group">',
-            '</ImExporterContext>'
-        );
+            '</ImExporterContext>',
+        ];
         $shellCommandExecutorMock
             ->shouldReceive('execute')->once()
             ->with($expectedCommand)
-            ->andReturn(new Result($output, array(), 0));
+            ->andReturn(new Result($output, [], 0));
 
         $expectedXmlString = implode(PHP_EOL, $output);
-
 
         $sut = new RenderContextFileToXMLCommand();
         $sut->setShellCommandExecutor($shellCommandExecutorMock);
 
         $result = $sut->execute($contextFile);
-
 
         $this->assertInstanceOf('DOMDocument', $result);
         $this->assertXmlStringEqualsXmlString($expectedXmlString, $result->saveXML());
@@ -49,7 +47,7 @@ class RenderContextFileToXMLCommandTest extends TestCase
         $shellCommandExecutorMock = \Mockery::mock('AqBanking\Command\ShellCommandExecutor');
         $shellCommandExecutorMock
             ->shouldReceive('execute')->once()
-            ->andReturn(new Result(array(), array(), 1));
+            ->andReturn(new Result([], [], 1));
 
         $sut = new RenderContextFileToXMLCommand();
         $sut->setShellCommandExecutor($shellCommandExecutorMock);
@@ -72,7 +70,8 @@ class RenderContextFileToXMLCommandTest extends TestCase
                     [file_get_contents('./tests/fixtures/test_context_file_transactions_with_type_transfer.xml')],
                     [],
                     0
-            ));
+                )
+            );
 
         $simpleXML = $sut->execute(
             new ContextFile('/path/to/some/context/file.ctx'),
@@ -81,62 +80,62 @@ class RenderContextFileToXMLCommandTest extends TestCase
 
         $this->assertEquals(
             'DE33123456780000000000',
-            (string)$simpleXML->accountInfoList->accountInfo->iban->value
+            (string) $simpleXML->accountInfoList->accountInfo->iban->value
         );
 
         $this->assertEquals(
             'ASDFFFWWAA',
-            (string)$simpleXML->accountInfoList->accountInfo->bic->value
+            (string) $simpleXML->accountInfoList->accountInfo->bic->value
         );
 
         $this->assertEquals(
             'HARALD MUSTERMANN',
-            (string)$simpleXML->accountInfoList->accountInfo->owner->value
+            (string) $simpleXML->accountInfoList->accountInfo->owner->value
         );
 
         $this->assertEquals(
             'DE15453384569356645534',
-            (string)$simpleXML->accountInfoList->accountInfo->transactionList->transaction->remoteIban->value
+            (string) $simpleXML->accountInfoList->accountInfo->transactionList->transaction->remoteIban->value
         );
 
         $this->assertEquals(
             'WARENHAUS GMBH',
-            (string)$simpleXML->accountInfoList->accountInfo->transactionList->transaction->remoteName->value
+            (string) $simpleXML->accountInfoList->accountInfo->transactionList->transaction->remoteName->value
         );
 
         $this->assertEquals(
             '2174/100:EUR',
-            (string)$simpleXML->accountInfoList->accountInfo->transactionList->transaction->value->value
+            (string) $simpleXML->accountInfoList->accountInfo->transactionList->transaction->value->value
         );
 
         $this->assertEquals(
             '0',
-            (string)$simpleXML->accountInfoList->accountInfo->transactionList->transaction->executionDay->value
+            (string) $simpleXML->accountInfoList->accountInfo->transactionList->transaction->executionDay->value
         );
 
         $this->assertEquals(
             '20220106',
-            (string)$simpleXML->accountInfoList->accountInfo->transactionList->transaction->date->value
+            (string) $simpleXML->accountInfoList->accountInfo->transactionList->transaction->date->value
         );
 
         $this->assertEquals(
             'Rechnung',
-            (string)$simpleXML->accountInfoList->accountInfo->transactionList->transaction->purpose->value
+            (string) $simpleXML->accountInfoList->accountInfo->transactionList->transaction->purpose->value
         );
 
         $this->assertEquals(
             'transfer',
-            (string)$simpleXML->accountInfoList->accountInfo->transactionList->transaction->type->value
+            (string) $simpleXML->accountInfoList->accountInfo->transactionList->transaction->type->value
         );
 
         $this->assertEquals(
             'pending',
-            (string)$simpleXML->accountInfoList->accountInfo->transactionList->transaction->status->value
+            (string) $simpleXML->accountInfoList->accountInfo->transactionList->transaction->status->value
         );
 
         $this->assertEquals(
             '2407',
-            (string)$simpleXML->accountInfoList->accountInfo->transactionList->transaction->uniqueId->value
+            (string) $simpleXML->accountInfoList->accountInfo->transactionList->transaction->uniqueId->value
         );
     }
 }

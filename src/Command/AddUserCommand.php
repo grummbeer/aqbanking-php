@@ -9,10 +9,9 @@ use AqBanking\User;
 
 class AddUserCommand extends AbstractCommand
 {
-    const RETURN_VAR_USER_ALREADY_EXISTS = 3;
+    public const RETURN_VAR_USER_ALREADY_EXISTS = 3;
 
     /**
-     * @param User $user
      * @throws AddUserCommand\UserAlreadyExistsException
      * @throws ShellCommandExecutor\DefectiveResultException
      */

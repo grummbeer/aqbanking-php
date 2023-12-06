@@ -2,15 +2,13 @@
 
 namespace AqBanking\Command;
 
-use AqBanking\Command\AddUserCommand\UserAlreadyExistsException;
 use AqBanking\Command\ShellCommandExecutor\DefectiveResultException;
 use AqBanking\Command\ShellCommandExecutor\ResultAnalyzer;
-use AqBanking\Account;
 use AqBanking\ExistingAccount;
 
 class AddAccountFlagsCommand extends AbstractCommand
 {
-    const FLAG_PREFER_CAMT_DOWNLOAD = 'preferCamtDownload';
+    public const FLAG_PREFER_CAMT_DOWNLOAD = 'preferCamtDownload';
 
     public function execute(ExistingAccount $account, $flags)
     {

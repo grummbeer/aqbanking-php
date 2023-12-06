@@ -25,7 +25,6 @@ class HbciVersion
     }
 
     /**
-     * @param HbciVersion $hbciVersion
      * @return bool
      */
     public function isHigherThan(HbciVersion $hbciVersion = null)

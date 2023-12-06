@@ -2,9 +2,9 @@
 
 namespace Tests\ContentXmlRenderer;
 
+use AqBanking\ContentXmlRenderer\MoneyElementRenderer;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
-use AqBanking\ContentXmlRenderer\MoneyElementRenderer;
 
 class MoneyElementRendererTest extends TestCase
 {

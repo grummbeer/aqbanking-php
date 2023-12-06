@@ -7,7 +7,6 @@ use AqBanking\ContextFile;
 class RenderContextFileToXMLCommand extends AbstractCommand
 {
     /**
-     * @param ContextFile $contextFile
      * @return \DOMDocument
      * @throws \RuntimeException
      */
@@ -22,14 +21,14 @@ class RenderContextFileToXMLCommand extends AbstractCommand
 
         $result = $this->getShellCommandExecutor()->execute($shellCommand);
 
-        if ($result->getReturnVar() !== 0) {
+        if (0 !== $result->getReturnVar()) {
             throw new \RuntimeException(
                 'AqBanking exited with errors: ' . PHP_EOL
                 . implode(PHP_EOL, $result->getErrors())
             );
         }
 
-        if($returnSimpleXml) {
+        if ($returnSimpleXml) {
             return new \SimpleXMLElement(implode(PHP_EOL, $result->getOutput()));
         }
 
