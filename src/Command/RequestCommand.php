@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking\Command;
 
 use AqBanking\AccountInterface as Account;
@@ -7,35 +9,21 @@ use AqBanking\Command\ShellCommandExecutor\DefectiveResultException;
 use AqBanking\Command\ShellCommandExecutor\ResultAnalyzer;
 use AqBanking\ContextFile;
 use AqBanking\PinFile\PinFileInterface as PinFile;
+use DateTime;
 
 class RequestCommand extends AbstractCommand
 {
-    /**
-     * @var Account
-     */
-    private $account;
-
-    /**
-     * @var ContextFile
-     */
-    private $contextFile;
-
-    /**
-     * @var PinFile
-     */
-    private $pinFile;
-
-    public function __construct(Account $account, ContextFile $contextFile, PinFile $pinFile)
-    {
-        $this->account = $account;
-        $this->contextFile = $contextFile;
-        $this->pinFile = $pinFile;
+    public function __construct(
+        private readonly Account $account,
+        private readonly ContextFile $contextFile,
+        private readonly PinFile $pinFile
+    ) {
     }
 
     /**
      * @throws ShellCommandExecutor\DefectiveResultException
      */
-    public function execute(\DateTime $fromDate = null)
+    public function execute(DateTime $fromDate = null): void
     {
         $shellCommand = $this->getShellCommand($fromDate);
         $result = $this->getShellCommandExecutor()->execute($shellCommand);
@@ -52,10 +40,7 @@ class RequestCommand extends AbstractCommand
         }
     }
 
-    /**
-     * @return string
-     */
-    private function getShellCommand(\DateTime $fromDate = null)
+    private function getShellCommand(DateTime $fromDate = null): string
     {
         $shellCommand =
             $this->pathToAqBankingCLIBinary
