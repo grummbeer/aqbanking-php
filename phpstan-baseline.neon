@@ -1,0 +1,46 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Argument of an invalid type DOMDocument supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: src/AccountMatcher.php
+
+		-
+			message: "#^Method AqBanking\\\\AccountMatcher\\:\\:__construct\\(\\) has parameter \\$array with no type specified\\.$#"
+			count: 1
+			path: src/AccountMatcher.php
+
+		-
+			message: "#^Method AqBanking\\\\AccountMatcher\\:\\:getExistingAccount\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/AccountMatcher.php
+
+		-
+			message: "#^Method AqBanking\\\\Arrayable\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Arrayable.php
+
+		-
+			message: "#^Method AqBanking\\\\Command\\\\ListAccountsCommand\\:\\:execute\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Command/ListAccountsCommand.php
+
+		-
+			message: "#^Method AqBanking\\\\ContextXmlRenderer\\:\\:renderMultiLineElement\\(\\) has parameter \\$nodes with generic class DOMNodeList but does not specify its types\\: TNode$#"
+			count: 1
+			path: src/ContextXmlRenderer.php
+
+		-
+			message: "#^Method AqBanking\\\\ContextXmlRenderer\\:\\:renderSimpleTextElement\\(\\) has parameter \\$valueNodes with generic class DOMNodeList but does not specify its types\\: TNode$#"
+			count: 1
+			path: src/ContextXmlRenderer.php
+
+		-
+			message: "#^Access to an undefined property AqBanking\\\\UserMatcher\\:\\:\\$xPath\\.$#"
+			count: 2
+			path: src/UserMatcher.php
+
+		-
+			message: "#^Method AqBanking\\\\UserMatcher\\:\\:getExistingUser\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/UserMatcher.php
