@@ -1,6 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking\Command;
+
+use RuntimeException;
 
 class ListAccountsCommand extends AbstractCommand
 {
@@ -12,10 +16,7 @@ class ListAccountsCommand extends AbstractCommand
 
     public const UNIQUE_ID = 'uniqueId';
 
-    /**
-     * @return array
-     */
-    public function execute()
+    public function execute(): array
     {
         $shellCommand =
             $this->pathToAqHBCIToolBinary
@@ -25,7 +26,7 @@ class ListAccountsCommand extends AbstractCommand
         $result = $this->getShellCommandExecutor()->execute($shellCommand);
 
         if (0 !== $result->getReturnVar()) {
-            throw new \RuntimeException(
+            throw new RuntimeException(
                 'AqBanking exited with errors: ' . PHP_EOL
                 . implode(PHP_EOL, $result->getErrors())
             );
