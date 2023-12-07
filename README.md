@@ -42,3 +42,9 @@ Run the fixer before push.
 ```shell
 ./vendor/bin/ecs --fix
 ```
+
+Run phpstan before push
+
+```shell
+./vendor/bin/phpstan analyse
+```
