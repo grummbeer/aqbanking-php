@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking\Command;
 
 use AqBanking\Account;
@@ -10,36 +12,19 @@ use AqBanking\PinFile\PinFile;
 
 class SepaTransferCommand extends AbstractCommand
 {
-    /**
-     * @var Account
-     */
-    private $account;
-
-    /**
-     * @var ContextFile
-     */
-    private $contextFile;
-
-    /**
-     * @var PinFile
-     */
-    private $pinFile;
-
-    public function __construct(Account $account, ContextFile $contextFile, PinFile $pinFile)
-    {
-        $this->account = $account;
-        $this->contextFile = $contextFile;
-        $this->pinFile = $pinFile;
+    public function __construct(
+        private readonly Account $account,
+        private readonly ContextFile $contextFile,
+        private readonly PinFile $pinFile
+    ) {
     }
 
     /**
-     * @param string $rname remote name
-     * @param string $riban remote iban
      * @param string $value value to transfer "1/100:EUR"
-     * @param string $purpose purpose of the transfer
+     *
      * @throws ShellCommandExecutor\DefectiveResultException
      */
-    public function execute(string $rname, string $riban, string $value, string $purpose, \DateTime $executionDate = null)
+    public function execute(string $rname, string $riban, string $value, string $purpose, \DateTime $executionDate = null): void
     {
         $shellCommand = $this->getShellCommand($rname, $riban, $value, $purpose, $executionDate);
         $result = $this->getShellCommandExecutor()->execute($shellCommand);
@@ -60,9 +45,8 @@ class SepaTransferCommand extends AbstractCommand
      * @param string $riban remote iban
      * @param string $value value to transfer "1/100:EUR"
      * @param string $purpose purpose of the transfer
-     * @return string
      */
-    private function getShellCommand(string $rname, string $riban, string $value, string $purpose, \DateTime $executionDate = null)
+    private function getShellCommand(string $rname, string $riban, string $value, string $purpose, \DateTime $executionDate = null): string
     {
         $shellCommand =
             $this->pathToAqBankingCLIBinary
