@@ -1,18 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Command;
 
 use AqBanking\Bank;
 use AqBanking\BankCode;
 use AqBanking\Command\GetSysIDCommand;
+use AqBanking\Command\ShellCommandExecutor\DefectiveResultException;
 use AqBanking\Command\ShellCommandExecutor\Result;
 use AqBanking\ExistingUser;
 use AqBanking\PinFile\PinFile;
 use AqBanking\User;
 
+/**
+ * @covers \AqBanking\Command\GetSysIDCommand
+ * @uses \AqBanking\Command\AbstractCommand
+ * @uses \AqBanking\Command\ShellCommandExecutor\DefectiveResultException
+ * @uses \AqBanking\Command\ShellCommandExecutor\Result
+ * @uses \AqBanking\Command\ShellCommandExecutor\ResultAnalyzer
+ * @uses \AqBanking\User
+ * @uses \AqBanking\Bank
+ * @uses \AqBanking\BankCode
+ * @uses \AqBanking\ExistingUser
+ * @uses \AqBanking\PinFile\PinFile
+ */
 class GetSysIDCommandTest extends ShellCommandTestCase
 {
-    public function testPollsSysID()
+    /**
+     * @throws DefectiveResultException
+     */
+    public function testPollsSysID(): void
     {
         $userId = 'mustermann';
         $uniqueUserId = 123;
@@ -50,7 +68,7 @@ class GetSysIDCommandTest extends ShellCommandTestCase
         $this->assertTrue(true);
     }
 
-    public function testThrowsExceptionOnUnexpectedResult()
+    public function testThrowsExceptionOnUnexpectedResult(): void
     {
         $userId = 'mustermann';
         $uniqueUserId = 123;
