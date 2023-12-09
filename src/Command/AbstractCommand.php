@@ -1,62 +1,40 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking\Command;
 
 abstract class AbstractCommand
 {
-    /**
-     * @var string
-     */
-    protected $pathToAqBankingCLIBinary = 'aqbanking-cli';
+    protected string $pathToAqBankingCLIBinary = 'aqbanking-cli';
 
-    /**
-     * @var string
-     */
-    protected $pathToAqBankingConfigBinary = 'aqbanking-config';
+    protected string $pathToAqBankingConfigBinary = 'aqbanking-config';
 
-    /**
-     * @var string
-     */
-    protected $pathToAqHBCIToolBinary = 'aqhbci-tool4';
+    protected string $pathToAqHBCIToolBinary = 'aqhbci-tool4';
 
-    /**
-     * @var null|ShellCommandExecutor
-     */
-    private $shellCommandExecutor = null;
+    private ?ShellCommandExecutor $shellCommandExecutor = null;
 
-    public function setShellCommandExecutor(ShellCommandExecutor $shellCommandExecutor)
+    public function setShellCommandExecutor(ShellCommandExecutor $shellCommandExecutor): void
     {
         $this->shellCommandExecutor = $shellCommandExecutor;
     }
 
-    /**
-     * @param string $binaryPath
-     */
-    public function setPathToAqBankingCLIBinary($binaryPath)
+    public function setPathToAqBankingCLIBinary(string $binaryPath): void
     {
         $this->pathToAqBankingCLIBinary = $binaryPath;
     }
 
-    /**
-     * @param string $pathToAqBankingConfigBinary
-     */
-    public function setPathToAqBankingConfigBinary($pathToAqBankingConfigBinary)
+    public function setPathToAqBankingConfigBinary(string $pathToAqBankingConfigBinary): void
     {
         $this->pathToAqBankingConfigBinary = $pathToAqBankingConfigBinary;
     }
 
-    /**
-     * @param string $pathToAqHBCIToolBinary
-     */
-    public function setPathToAqHBCIToolBinary($pathToAqHBCIToolBinary)
+    public function setPathToAqHBCIToolBinary(string $pathToAqHBCIToolBinary): void
     {
         $this->pathToAqHBCIToolBinary = $pathToAqHBCIToolBinary;
     }
 
-    /**
-     * @return ShellCommandExecutor
-     */
-    protected function getShellCommandExecutor()
+    protected function getShellCommandExecutor(): ShellCommandExecutor
     {
         if (null === $this->shellCommandExecutor) {
             $this->shellCommandExecutor = new ShellCommandExecutor();

@@ -1,55 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking;
 
 class User
 {
-    /**
-     * @var string
-     */
-    private $userId;
-
-    /**
-     * @var string
-     */
-    private $userName;
-
-    /**
-     * @var Bank
-     */
-    private $bank;
-
-    /**
-     * @param string $userId
-     * @param string $userName
-     */
-    public function __construct($userId, $userName, Bank $bank)
-    {
-        $this->userId = $userId;
-        $this->userName = $userName;
-        $this->bank = $bank;
+    public function __construct(
+        private readonly string $userId,
+        private readonly string $userName,
+        private readonly Bank $bank
+    ) {
     }
 
-    /**
-     * @return string
-     */
-    public function getUserId()
+    public function getUserId(): string
     {
         return $this->userId;
     }
 
-    /**
-     * @return string
-     */
-    public function getUserName()
+    public function getUserName(): string
     {
         return $this->userName;
     }
 
-    /**
-     * @return Bank
-     */
-    public function getBank()
+    public function getBank(): Bank
     {
         return $this->bank;
     }

@@ -1,33 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking;
 
 use AqBanking\Command\ListAccountsCommand;
 
 /**
  * Find account in existing account database
- * @package AqBanking
  */
 class AccountMatcher
 {
-    /**
-     * @var \DOMDocument
-     */
-    private $array;
-
-    public function __construct($array)
-    {
-        $this->array = $array;
+    public function __construct(
+        private readonly array $existingAccounts
+    ) {
     }
 
-    public function getExistingAccount(Account $account)
+    public function getExistingAccount(Account $account): ?ExistingAccount
     {
-        foreach ($this->array as $record) {
+        foreach ($this->existingAccounts as $record) {
             if (
                 $account->getBankCode()->getString() === $record[ListAccountsCommand::BANK] &&
                 $account->getAccountNumber() === $record[ListAccountsCommand::NUMBER]
             ) {
-                return new ExistingAccount($account, $record[ListAccountsCommand::UNIQUE_ID]);
+                return new ExistingAccount($account, (int) $record[ListAccountsCommand::UNIQUE_ID]);
             }
         }
 

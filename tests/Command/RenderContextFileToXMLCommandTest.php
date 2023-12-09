@@ -1,25 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Command;
 
 use AqBanking\Command\RenderContextFileToXMLCommand;
 use AqBanking\Command\ShellCommandExecutor\Result;
 use AqBanking\ContextFile;
+use Exception;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \AqBanking\Command\RenderContextFileToXMLCommand
+ * @uses \AqBanking\Command\AbstractCommand
+ * @uses \AqBanking\Command\ShellCommandExecutor\Result
+ * @uses \AqBanking\ContextFile
+ */
 class RenderContextFileToXMLCommandTest extends TestCase
 {
+    /**
+     * @throws Exception
+     */
     public function testCanIssueCorrectRenderCommand()
     {
-        $this->markTestSkipped('FIXME');
-
         $contextFile = new ContextFile('/path/to/some/context/file.ctx');
 
         $shellCommandExecutorMock = \Mockery::mock('AqBanking\Command\ShellCommandExecutor');
         $expectedCommand =
             'aqbanking-cli'
             . ' export'
-            . ' --ctxfile=' . $contextFile->getPath()
+            . ' --ctxfile=' . escapeshellcmd($contextFile->getPath())
+            . ' --transactiontype=statement' // we are only interested in statements, not notedStatement and so on
             . ' --exporter=xmldb';
         $output = [
             '<?xml version="1.0" encoding="utf-8"?>',
@@ -42,6 +53,9 @@ class RenderContextFileToXMLCommandTest extends TestCase
         $this->assertXmlStringEqualsXmlString($expectedXmlString, $result->saveXML());
     }
 
+    /**
+     * @throws Exception
+     */
     public function testCanHandleUnexpectedOutput()
     {
         $shellCommandExecutorMock = \Mockery::mock('AqBanking\Command\ShellCommandExecutor');

@@ -1,14 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Command\ShellCommandExecutor;
 
 use AqBanking\Command\ShellCommandExecutor\Result;
 use AqBanking\Command\ShellCommandExecutor\ResultAnalyzer;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \AqBanking\Command\ShellCommandExecutor\ResultAnalyzer
+ * @uses \AqBanking\Command\ShellCommandExecutor\Result
+ */
 class ResultAnalyzerTest extends TestCase
 {
-    public function testEmptyResultIsNoError()
+    public function testEmptyResultIsNoError(): void
     {
         $result = new Result([], [], 0);
 
@@ -17,7 +23,7 @@ class ResultAnalyzerTest extends TestCase
         $this->assertFalse($sut->isDefectiveResult($result));
     }
 
-    public function testRecognizesErrorByResultVar()
+    public function testRecognizesErrorByResultVar(): void
     {
         $result = new Result([], [], 1);
 
@@ -26,7 +32,7 @@ class ResultAnalyzerTest extends TestCase
         $this->assertTrue($sut->isDefectiveResult($result));
     }
 
-    public function testCanTellCorrectPollResult()
+    public function testCanTellCorrectPollResult(): void
     {
         $errors = [
             '5:2013/07/22 11-32-32:aqbanking(39873):abgui.c:  182: Automatically accepting valid new certificate [40:BD:81:8B:76:27:1A:58:5C:B7:68:46:1E:CB:F2:FD]',
@@ -43,7 +49,7 @@ class ResultAnalyzerTest extends TestCase
         $this->assertFalse($sut->isDefectiveResult($result));
     }
 
-    public function testCanTellDefectivePollResult()
+    public function testCanTellDefectivePollResult(): void
     {
         $errors = [
             '5:2013/07/22 11-31-44:aqbanking(39859):abgui.c:  182: Automatically accepting valid new certificate [40:BD:81:8B:76:27:1A:58:5C:B7:68:46:1E:CB:F2:FD]',
@@ -52,6 +58,15 @@ class ResultAnalyzerTest extends TestCase
             '4:2013/07/22 11-31-44:aqbanking(39859):./banking_online.c:  137: Not a single job successfully executed',
         ];
         $result = new Result([], $errors, 0);
+
+        $sut = new ResultAnalyzer();
+
+        $this->assertTrue($sut->isDefectiveResult($result));
+    }
+
+    public function testGetsysidError(): void
+    {
+        $result = new Result([], ['accepting valid new certificate'], 0);
 
         $sut = new ResultAnalyzer();
 

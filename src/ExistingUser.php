@@ -1,55 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking;
 
 /**
- * Should be greated by list users and user matcher
- *
- * @package AqBanking
+ * Should be created by list users and user matcher
  */
 class ExistingUser
 {
-    /**
-     * @var User
-     */
-    private $user;
-
-    /**
-     * @var int
-     */
-    private $uniqueUserId;
-
-    public function __construct(User $user, int $uniqueUserId)
-    {
-        $this->user = $user;
-        $this->uniqueUserId = $uniqueUserId;
+    public function __construct(
+        private readonly User $user,
+        private readonly int $uniqueUserId
+    ) {
     }
 
-    public function getUniqueUserId()
+    public function getUniqueUserId(): int
     {
         return $this->uniqueUserId;
     }
 
-    /**
-     * @return string
-     */
-    public function getUserId()
+    public function getUserId(): string
     {
         return $this->user->getUserId();
     }
 
-    /**
-     * @return string
-     */
-    public function getUserName()
+    public function getUserName(): string
     {
         return $this->user->getUserName();
     }
 
-    /**
-     * @return Bank
-     */
-    public function getBank()
+    public function getBank(): Bank
     {
         return $this->user->getBank();
     }

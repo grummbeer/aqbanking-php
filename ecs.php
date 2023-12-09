@@ -6,6 +6,8 @@ use PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer;
 use PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer;
 use PhpCsFixer\Fixer\FunctionNotation\NativeFunctionInvocationFixer;
 use PhpCsFixer\Fixer\Import\NoUnusedImportsFixer;
+use PhpCsFixer\Fixer\Phpdoc\PhpdocOrderFixer;
+use PhpCsFixer\Fixer\Phpdoc\PhpdocTypesOrderFixer;
 use PhpCsFixer\Fixer\Strict\StrictComparisonFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
@@ -23,6 +25,8 @@ return function (ECSConfig $ecsConfig): void {
         YodaStyleFixer::class,
         OrderedClassElementsFixer::class,
         NativeFunctionInvocationFixer::class,
+        PhpdocTypesOrderFixer::class,
+        PhpdocOrderFixer::class,
     ]);
 
     $ecsConfig->sets([

@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking\Command;
 
 use AqBanking\Command\ShellCommandExecutor\DefectiveResultException;
 use AqBanking\Command\ShellCommandExecutor\ResultAnalyzer;
 use AqBanking\ExistingUser;
-use AqBanking\User;
 
 class AddUserFlagsCommand extends AbstractCommand
 {
@@ -13,11 +14,10 @@ class AddUserFlagsCommand extends AbstractCommand
 
     /**
      * @deperacted no longer supported in AqBanking 6
-     * @param User $user
-     * @throws AddUserCommand\UserAlreadyExistsException
+     *
      * @throws ShellCommandExecutor\DefectiveResultException
      */
-    public function execute(ExistingUser $user, $flags)
+    public function execute(ExistingUser $user, string $flags): void
     {
         $shellCommand =
             $this->pathToAqHBCIToolBinary

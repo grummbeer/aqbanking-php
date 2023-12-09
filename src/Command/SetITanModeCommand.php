@@ -1,20 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking\Command;
 
 use AqBanking\Command\ShellCommandExecutor\DefectiveResultException;
 use AqBanking\Command\ShellCommandExecutor\ResultAnalyzer;
 use AqBanking\ExistingUser;
-use AqBanking\User;
 
 class SetITanModeCommand extends AbstractCommand
 {
     /**
-     * @param User $user
-     * @throws AddUserCommand\UserAlreadyExistsException
-     * @throws ShellCommandExecutor\DefectiveResultException
+     * @throws DefectiveResultException
      */
-    public function execute(ExistingUser $user, $mode)
+    public function execute(ExistingUser $user, string $mode): void
     {
         $shellCommand =
             $this->pathToAqHBCIToolBinary

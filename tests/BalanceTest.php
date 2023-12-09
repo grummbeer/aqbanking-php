@@ -1,11 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
+namespace Tests;
+
 use AqBanking\Balance;
+use DateTime;
+use DateTimeInterface;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Balance
+ * @covers \AqBanking\Balance
  */
 class BalanceTest extends TestCase
 {

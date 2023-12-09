@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking\Command;
 
 use AqBanking\Command\ShellCommandExecutor\DefectiveResultException;
@@ -10,10 +12,9 @@ use AqBanking\PinFile\PinFileInterface as PinFile;
 class GetAccountsCommand extends AbstractCommand
 {
     /**
-     * @param User $user
      * @throws ShellCommandExecutor\DefectiveResultException
      */
-    public function execute(ExistingUser $user, PinFile $pinFile)
+    public function execute(ExistingUser $user, PinFile $pinFile): void
     {
         $shellCommand =
             $this->pathToAqHBCIToolBinary

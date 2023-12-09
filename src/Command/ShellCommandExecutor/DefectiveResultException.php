@@ -1,20 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking\Command\ShellCommandExecutor;
 
-class DefectiveResultException extends \Exception
+use Exception;
+
+class DefectiveResultException extends Exception
 {
-    /**
-     * @var Result
-     */
-    private $result;
+    private ?Result $result;
 
-    /**
-     * @var string
-     */
-    private $shellCommand;
+    private string $shellCommand;
 
-    public function __construct($message = '', $code = 0, \Exception $previous = null, Result $result = null, $shellCommand = '')
+    public function __construct(string $message = '', int $code = 0, Exception $previous = null, Result $result = null, string $shellCommand = '')
     {
         parent::__construct(
             $message .
@@ -28,18 +26,12 @@ class DefectiveResultException extends \Exception
         $this->shellCommand = $shellCommand;
     }
 
-    /**
-     * @return \AqBanking\Command\ShellCommandExecutor\Result
-     */
-    public function getResult()
+    public function getResult(): ?Result
     {
         return $this->result;
     }
 
-    /**
-     * @return string
-     */
-    public function getShellCommand()
+    public function getShellCommand(): string
     {
         return $this->shellCommand;
     }

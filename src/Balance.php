@@ -2,60 +2,37 @@
 
 namespace AqBanking;
 
+use DateTime;
 use Money\Money;
 
 class Balance implements Arrayable
 {
-    /**
-     * @var string
-     */
-    private $type;
-
-    /**
-     * @var \DateTime
-     */
-    private $date;
-
-    /**
-     * @var Money
-     */
-    private $value;
-
     public function __construct(
-        \DateTime $date,
-        Money $value,
-        string $type
+        private readonly DateTime $date,
+        private readonly Money $value,
+        private readonly string $type
     ) {
-        $this->date = $date;
-        $this->value = $value;
-        $this->type = $type;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getDate()
+    public function getDate(): DateTime
     {
         return $this->date;
     }
 
-    /**
-     * @return string
-     */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @return \Money\Money
-     */
-    public function getValue()
+    public function getValue(): Money
     {
         return $this->value;
     }
 
-    public function toArray()
+    /**
+     * @return array<string, array<int|string>|string>
+     */
+    public function toArray(): array
     {
         return [
             'type' => $this->getType(),

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking\Command;
 
 use AqBanking\Command\ShellCommandExecutor\DefectiveResultException;
@@ -10,7 +12,10 @@ class AddAccountFlagsCommand extends AbstractCommand
 {
     public const FLAG_PREFER_CAMT_DOWNLOAD = 'preferCamtDownload';
 
-    public function execute(ExistingAccount $account, $flags)
+    /**
+     * @throws DefectiveResultException
+     */
+    public function execute(ExistingAccount $account, string $flags): void
     {
         $shellCommand =
             $this->pathToAqHBCIToolBinary

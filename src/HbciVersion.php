@@ -1,33 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking;
 
 class HbciVersion
 {
-    /**
-     * @var string
-     */
-    private $versionNumber;
-
-    /**
-     * @var string|null
-     */
-    private $methodCode;
-
-    /**
-     * @param string $versionNumber
-     * @param string|null $methodCode
-     */
-    public function __construct($versionNumber, $methodCode = null)
-    {
-        $this->versionNumber = $versionNumber;
-        $this->methodCode = $methodCode;
+    public function __construct(
+        private readonly string $versionNumber,
+        private readonly ?string $methodCode = null
+    ) {
     }
 
-    /**
-     * @return bool
-     */
-    public function isHigherThan(HbciVersion $hbciVersion = null)
+    public function isHigherThan(?HbciVersion $hbciVersion = null): bool
     {
         if (null === $hbciVersion) {
             return true;
@@ -36,18 +21,12 @@ class HbciVersion
         return (version_compare($this->versionNumber, $hbciVersion->versionNumber) > 0);
     }
 
-    /**
-     * @return string|null
-     */
-    public function getMethodCode()
+    public function getMethodCode(): ?string
     {
         return $this->methodCode;
     }
 
-    /**
-     * @return string
-     */
-    public function getVersionNumber()
+    public function getVersionNumber(): string
     {
         return $this->versionNumber;
     }

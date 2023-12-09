@@ -1,16 +1,33 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Command;
 
 use AqBanking\Account;
 use AqBanking\BankCode;
 use AqBanking\Command\SepaTransferCommand;
+use AqBanking\Command\ShellCommandExecutor\DefectiveResultException;
 use AqBanking\Command\ShellCommandExecutor\Result;
 use AqBanking\ContextFile;
+use Mockery;
+use Mockery\MockInterface;
 
+/**
+ * @covers \AqBanking\Command\SepaTransferCommand
+ * @uses \AqBanking\Command\AbstractCommand
+ * @uses \AqBanking\Command\ShellCommandExecutor\Result
+ * @uses \AqBanking\Command\ShellCommandExecutor\ResultAnalyzer
+ * @uses \AqBanking\Account
+ * @uses \AqBanking\BankCode
+ * @uses \AqBanking\ContextFile
+ */
 class SepaTransferCommandTest extends ShellCommandTestCase
 {
-    public function testCanExecute()
+    /**
+     * @throws DefectiveResultException
+     */
+    public function testCanExecute(): void
     {
         $rname = "MrRandom";
         $riban = "DE21344423423";
@@ -60,7 +77,7 @@ class SepaTransferCommandTest extends ShellCommandTestCase
         $this->assertTrue(true);
     }
 
-    public function testAcceptsValidOutput()
+    public function testAcceptsValidOutput(): void
     {
         $accountNumber = '12345678';
         $bankCodeString = '23456789';
@@ -87,11 +104,10 @@ class SepaTransferCommandTest extends ShellCommandTestCase
 
     /**
      * @param string $pathToPinFile
-     * @return \Mockery\MockInterface
      */
-    private function getPinFileMock($pathToPinFile)
+    private function getPinFileMock($pathToPinFile): MockInterface
     {
-        $pinFileMock = \Mockery::mock('AqBanking\PinFile\PinFile');
+        $pinFileMock = Mockery::mock('AqBanking\PinFile\PinFile');
         $pinFileMock
             ->shouldReceive('getPath')
             ->andReturn($pathToPinFile);

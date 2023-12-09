@@ -1,151 +1,76 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking;
 
+use DateTime;
 use Money\Money;
 
 class Transaction implements Arrayable
 {
-    /**
-     * @var Account
-     */
-    private $localAccount;
-
-    /**
-     * @var Account
-     */
-    private $remoteAccount;
-
-    /**
-     * @var string
-     */
-    private $purpose;
-
-    /**
-     * @var \DateTime
-     */
-    private $valutaDate;
-
-    /**
-     * @var \DateTime
-     */
-    private $date;
-
-    /**
-     * @var Money
-     */
-    private $value;
-
-    /**
-     * @var string
-     */
-    private $primaNota;
-
-    /**
-     * @var string
-     */
-    private $type;
-
-    /**
-     * @var string
-     */
-    private $customerReference;
-
     public function __construct(
-        Account $localAccount,
-        Account $remoteAccount,
-        $type,
-        $purpose,
-        \DateTime $valutaDate = null,
-        \DateTime $date,
-        Money $value,
-        $primaNota,
-        $customerReference
+        private readonly Account $localAccount,
+        private readonly Account $remoteAccount,
+        private readonly string $type,
+        private readonly string $purpose,
+        private readonly ?DateTime $valutaDate = null,
+        private readonly DateTime $date,
+        private readonly Money $value,
+        private readonly string $primaNota,
+        private readonly string $customerReference
     ) {
-        $this->date = $date;
-        $this->localAccount = $localAccount;
-        $this->purpose = $purpose;
-        $this->remoteAccount = $remoteAccount;
-        $this->type = $type;
-        $this->value = $value;
-        $this->valutaDate = $valutaDate;
-        $this->primaNota = $primaNota;
-        $this->customerReference = $customerReference;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * @return \AqBanking\Account
-     */
-    public function getLocalAccount()
+    public function getLocalAccount(): Account
     {
         return $this->localAccount;
     }
 
-    /**
-     * @return string
-     */
-    public function getPurpose()
-    {
-        return $this->purpose;
-    }
-
-    /**
-     * @return \AqBanking\Account
-     */
-    public function getRemoteAccount()
+    public function getRemoteAccount(): Account
     {
         return $this->remoteAccount;
     }
 
-    /**
-     * @return \Money\Money
-     */
-    public function getValue()
+    public function getDate(): DateTime
+    {
+        return $this->date;
+    }
+
+    public function getPurpose(): string
+    {
+        return $this->purpose;
+    }
+
+    public function getValue(): Money
     {
         return $this->value;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getValutaDate()
+    public function getValutaDate(): ?DateTime
     {
         return $this->valutaDate;
     }
 
-    /**
-     * @return string
-     */
-    public function getPrimaNota()
+    public function getPrimaNota(): string
     {
         return $this->primaNota;
     }
 
-    /**
-     * @return string
-     */
-    public function getCustomerReference()
+    public function getCustomerReference(): string
     {
         return $this->customerReference;
     }
 
-    /**
-     * @return string
-     */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    public function toArray()
+    /**
+     * @return array<string, mixed>
+     */
+    public function toArray(): array
     {
         return [
             'date' => $this->getDate()->format('Y-m-d'),
@@ -155,7 +80,7 @@ class Transaction implements Arrayable
             'type' => $this->getType(),
             'value' => [
                 'amount' => $this->getValue()->getAmount(),
-                'currency' => $this->getValue()->getCurrency()->getName(),
+                'currency' => $this->getValue()->getCurrency()->getCode(),
                 'priceUnit' => 100,
             ],
             'valutaDate' => $this->getValutaDate() ? $this->getValutaDate()->format('Y-m-d') : null,

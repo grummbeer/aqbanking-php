@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace PinFile;
 
 use AqBanking\Bank;
 use AqBanking\BankCode;
@@ -9,12 +9,16 @@ use AqBanking\User;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \AqBanking\PinFile\PinFileCreator
+ * @uses \AqBanking\Bank
+ * @uses \AqBanking\BankCode
+ * @uses \AqBanking\User
+ * @uses \AqBanking\PinFile\PinFile
+ */
 class PinFileCreatorTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function creates_valid_pin_files()
+    public function testCreatePinFile(): void
     {
         $pinFileDir = 'someDir';
         $vfsRoot = vfsStream::setup($pinFileDir);
@@ -49,19 +53,19 @@ class PinFileCreatorTest extends TestCase
     /**
      * @test
      */
-    public function throws_exception_if_given_pin_file_dir_is_not_a_directory()
+    public function testDirIsNotADirectory(): void
     {
         $sut = new PinFileCreator('/no/such/dir');
 
         $this->expectException('\InvalidArgumentException');
-        $this->expectErrorMessage('is not a directory');
+        $this->expectExceptionMessage('is not a directory');
         $sut->createFile('12345', $this->createDummyUser());
     }
 
     /**
      * @test
      */
-    public function throws_exception_if_given_pin_file_dir_is_not_writable()
+    public function testDirIsNotWritable(): void
     {
         $pinFileDir = 'someDir';
         vfsStream::setup($pinFileDir, 0555);
@@ -70,14 +74,11 @@ class PinFileCreatorTest extends TestCase
         $sut = new PinFileCreator($pinFileDirMock);
 
         $this->expectException('\InvalidArgumentException');
-        $this->expectErrorMessage('is not writable');
+        $this->expectExceptionMessage('is not writable');
         $sut->createFile('12345', $this->createDummyUser());
     }
 
-    /**
-     * @return User
-     */
-    private function createDummyUser()
+    private function createDummyUser(): User
     {
         return new User('mustermann', 'Max Mustermann', new Bank(new BankCode('12345678'), 'https://hbci.example.com'));
     }

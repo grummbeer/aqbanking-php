@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking\Command;
 
 use AqBanking\Command\ShellCommandExecutor\DefectiveResultException;
@@ -9,26 +11,23 @@ use AqBanking\User;
 
 class SetAppropriateITanModeCommand extends AbstractCommand
 {
-    /**
-     * @var User
-     */
-    private $user;
-
-    public function __construct(User $user)
-    {
-        $this->user = $user;
+    public function __construct(
+        private readonly User $user
+    ) {
     }
 
-    public function execute()
+    /**
+     * @throws DefectiveResultException
+     */
+    public function execute(): void
     {
         $this->setHbciVersion($this->determineHbciVersionToSet());
     }
 
     /**
-     * @return HbciVersion
      * @throws DefectiveResultException
      */
-    private function determineHbciVersionToSet()
+    private function determineHbciVersionToSet(): HbciVersion
     {
         $shellCommand =
             $this->pathToAqHBCIToolBinary .
@@ -62,10 +61,7 @@ class SetAppropriateITanModeCommand extends AbstractCommand
         return $highestVersionAvailable;
     }
 
-    /**
-     * @return null|HbciVersion
-     */
-    private function findHighestAvailableHbciVersion(Result $result)
+    private function findHighestAvailableHbciVersion(Result $result): ?HbciVersion
     {
         $highestVersionAvailable = null;
 
@@ -87,7 +83,7 @@ class SetAppropriateITanModeCommand extends AbstractCommand
     /**
      * @throws DefectiveResultException
      */
-    private function setHbciVersion(HbciVersion $highestVersionAvailable)
+    private function setHbciVersion(HbciVersion $highestVersionAvailable): void
     {
         $shellCommand =
             $this->pathToAqHBCIToolBinary .

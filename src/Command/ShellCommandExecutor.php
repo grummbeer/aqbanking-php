@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking\Command;
 
 use AqBanking\Command\ShellCommandExecutor\Result;
@@ -8,14 +10,14 @@ class ShellCommandExecutor
 {
     public const ERROR_REPORTING = 'error';
 
-    public function execute($shellCommand)
+    public function execute(string $shellCommand): Result
     {
         $shellCommand = 'AQBANKING_LOGLEVEL=' . self::ERROR_REPORTING .
             ' GWEN_LOGLEVEL=' . self::ERROR_REPORTING .
             ' AQHBCI_LOGLEVEL=' . self::ERROR_REPORTING .
             ' LANG=C ' . $shellCommand;
         $output = [];
-        $returnVar = null;
+        $returnVar = 0;
         $tempFile = tempnam(sys_get_temp_dir(), 'aqb-');
 
         //        FIXME: Make a configurable log file

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking\Command;
 
 use AqBanking\Command\ShellCommandExecutor\DefectiveResultException;
@@ -9,7 +11,10 @@ use AqBanking\PinFile\PinFile;
 
 class GetAccSepaCommand extends AbstractCommand
 {
-    public function execute(ExistingAccount $account, PinFile $pinFile)
+    /**
+     * @throws DefectiveResultException
+     */
+    public function execute(ExistingAccount $account, PinFile $pinFile): void
     {
         $shellCommand =
             $this->pathToAqHBCIToolBinary
@@ -23,7 +28,13 @@ class GetAccSepaCommand extends AbstractCommand
 
         $resultAnalyzer = new ResultAnalyzer();
         if ($resultAnalyzer->isDefectiveResult($result)) {
-            throw new DefectiveResultException('Unexpected output on getting account sepa', 0, null, $result, $shellCommand);
+            throw new DefectiveResultException(
+                'Unexpected output on getting account sepa',
+                0,
+                null,
+                $result,
+                $shellCommand
+            );
         }
     }
 }

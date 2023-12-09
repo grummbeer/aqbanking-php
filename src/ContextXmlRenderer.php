@@ -1,38 +1,40 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking;
 
 use AqBanking\ContentXmlRenderer\MoneyElementRenderer;
+use DateTime;
+use DOMDocument;
+use DOMElement;
+use DOMNode;
+use DOMNodeList;
+use DOMXPath;
+use Exception;
 use Money\Money;
 
 class ContextXmlRenderer
 {
-    /**
-     * @var \DOMDocument
-     */
-    private $domDocument;
+    private DOMDocument $domDocument;
 
-    /**
-     * @var \DOMXPath
-     */
-    private $xPath;
+    private DOMXPath $xPath;
 
-    /**
-     * @var MoneyElementRenderer
-     */
-    private $moneyElementRenderer;
+    private MoneyElementRenderer $moneyElementRenderer;
 
-    public function __construct(\DOMDocument $domDocument)
+    public function __construct(DOMDocument $domDocument)
     {
         $this->domDocument = $domDocument;
-        $this->xPath = new \DOMXPath($domDocument);
+        $this->xPath = new DOMXPath($domDocument);
         $this->moneyElementRenderer = new MoneyElementRenderer();
     }
 
     /**
-     * @return Transaction[]
+     * @throws Exception
+     *
+     * @return array<int, Transaction>
      */
-    public function getTransactions()
+    public function getTransactions(): array
     {
         $transactionNodes = $this->domDocument->getElementsByTagName('transaction');
         $transactions = [];
@@ -90,38 +92,37 @@ class ContextXmlRenderer
     }
 
     /**
-     * @return Balance
+     * @throws Exception
+     *
+     * @return array<int, Balance>
      */
-    public function getBalances()
+    public function getBalances(): array
     {
         $balanceNodes = $this->domDocument->getElementsByTagName('balance');
         $balances = [];
 
-        /**
-         * @var DOMElement $balanceNode
-         */
         foreach ($balanceNodes as $balanceNode) {
+            /** @var DOMElement $balanceNode */
             $date = $this->renderDateElement($this->xPath->query('date', $balanceNode)->item(0));
             $value = $this->renderMoneyElement($this->xPath->query('value', $balanceNode)->item(0));
             $type = $this->renderSimpleTextElement($this->xPath->query('type', $balanceNode));
 
-            $balances[] = new Balance($date, $value, $type);
+            $balances[] = new Balance(date: $date, value: $value, type: $type);
         }
 
         return $balances;
     }
 
     /**
-     * @throws \RuntimeException
-     * @return string
+     * @param DOMNodeList<DOMNode> $nodes
      */
-    private function renderMultiLineElement(\DOMNodeList $nodes)
+    private function renderMultiLineElement(DOMNodeList $nodes): string
     {
         $lines = [];
         foreach ($nodes as $node) {
             $line = trim($node->nodeValue);
             if (false !== strpos($line, '|')) {
-                throw new \RuntimeException('Unexpected character');
+                throw new RuntimeException('Unexpected character');
             }
             $lines[] = $line;
         }
@@ -129,43 +130,40 @@ class ContextXmlRenderer
         return implode('|', $lines);
     }
 
-    /**
-     * @throws \RuntimeException
-     * @return \DateTime
-     */
-    private function renderDateElement(\DOMNode $node = null)
+    private function renderDateElement(DOMNode $node = null): ?DateTime
     {
         if (! $node) {
             return null;
         }
 
         $dateElement = $this->xPath->query('value', $node)->item(0);
-        $date = \DateTime::createFromFormat(
+        $date = DateTime::createFromFormat(
             'Ymd',
             $dateElement->nodeValue,
             new \DateTimeZone('UTC')
         );
         $date->setTime(0, 0, 0);
+
         return $date;
     }
 
     /**
-     * @return Money
-     * @throws \Exception
+     * @throws RuntimeException
      */
-    private function renderMoneyElement(\DOMNode $node)
+    private function renderMoneyElement(DOMNode $node): Money
     {
         $value = $this->renderSimpleTextElement($this->xPath->query('value', $node));
         $pair = explode(':', $value);
         $valueString = $pair[0];
         $currencyString = empty($pair[1]) ? 'EUR' : $pair[1];
+
         return $this->moneyElementRenderer->render($valueString, $currencyString);
     }
 
     /**
-     * @return string
+     * @param DOMNodeList<DOMNode> $valueNodes
      */
-    private function renderSimpleTextElement(\DOMNodeList $valueNodes)
+    private function renderSimpleTextElement(DOMNodeList $valueNodes): string
     {
         return trim($valueNodes->item(0)->nodeValue);
     }

@@ -1,0 +1,16 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method AqBanking\\\\AccountMatcher\\:\\:__construct\\(\\) has parameter \\$existingAccounts with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/AccountMatcher.php
+
+		-
+			message: "#^Method AqBanking\\\\Arrayable\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Arrayable.php
+
+		-
+			message: "#^Method AqBanking\\\\Command\\\\ListAccountsCommand\\:\\:execute\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Command/ListAccountsCommand.php

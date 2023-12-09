@@ -1,16 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use AqBanking\HbciVersion;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \AqBanking\HbciVersion
+ */
 class HbciVersionTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function can_tell_if_higher_version_than_other_instance()
+    public function testHbciVersion(): void
+    {
+        $versionNumber = '1.2.3';
+        $sut = new HbciVersion(versionNumber: $versionNumber);
+
+        $this->assertSame($versionNumber, $sut->getVersionNumber());
+        $this->assertNull($sut->getMethodCode());
+    }
+
+    public function testHbciVersionMethodeCode(): void
+    {
+        $methodCode = '1234';
+
+        $sut = new HbciVersion('1.2.3', $methodCode);
+
+        $this->assertSame($methodCode, $sut->getMethodCode());
+    }
+
+    public function testCanTellIfHigherVersionThanOtherInstance(): void
     {
         $sut = new HbciVersion('1.2.3');
 
@@ -24,25 +44,10 @@ class HbciVersionTest extends TestCase
         $this->assertFalse($sut->isHigherThan($higherVersion));
     }
 
-    /**
-     * @test
-     */
-    public function is_higher_than_null()
+    public function testIsHigherThanNull(): void
     {
         $sut = new HbciVersion('1.2.3');
 
-        $this->assertTrue($sut->isHigherThan(null));
-    }
-
-    /**
-     * @test
-     */
-    public function can_have_method_code()
-    {
-        $methodCode = '1234';
-
-        $sut = new HbciVersion('1.2.3', $methodCode);
-
-        $this->assertEquals($methodCode, $sut->getMethodCode());
+        $this->assertTrue($sut->isHigherThan());
     }
 }

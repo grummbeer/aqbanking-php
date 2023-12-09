@@ -1,6 +1,6 @@
 name: CI
 
-on: [ push ]
+on: [ push, pull_request ]
 
 jobs:
   check:
@@ -19,8 +19,15 @@ jobs:
       - name: Check formatting
         run: ./vendor/bin/ecs check
 
+      - name: Analyse code
+        run: ./vendor/bin/phpstan
+
       - name: Run tests
         uses: php-actions/phpunit@v3
+        env:
+          XDEBUG_MODE: coverage
         with:
-          version: 8.5
+          version: 10.5
           php_version: 8.1
+          php_extensions: "xdebug"
+          coverage_text: true
