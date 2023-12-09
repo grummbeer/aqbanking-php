@@ -1,47 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AqBanking;
+
+use DOMDocument;
+use DOMElement;
 
 /**
  * Find user in existing user database
- * @package AqBanking
  */
 class UserMatcher
 {
-    /**
-     * @var \DOMDocument
-     */
-    private $domDocument;
-
-    public function __construct(\DOMDocument $domDocument = null)
-    {
-        $this->domDocument = $domDocument;
-        if (null !== $domDocument) {
-            $this->xPath = new \DOMXPath($domDocument);
-        }
+    public function __construct(
+        private readonly ?DOMDocument $domDocument = null
+    ) {
     }
 
-    public function getExistingUser(User $user)
+    public function getExistingUser(User $user): ?ExistingUser
     {
         if (null === $this->domDocument) {
             return null;
         }
 
-        $userNodes = $this->xPath->query('/users/user', $this->domDocument);
-
-        foreach ($userNodes as $userNode) {
-            $userName = $userNode->getElementsByTagName('UserName')[0]->nodeValue;
-            $userId = $userNode->getElementsByTagName('UserId')[0]->nodeValue;
-            $customerId = $userNode->getElementsByTagName('CustomerId')[0]->nodeValue;
-            $bankCode = $userNode->getElementsByTagName('BankCode')[0]->nodeValue;
-            $uniqueId = $userNode->getElementsByTagName('userUniqueId')[0]->nodeValue;
-
+        foreach ($this->domDocument->getElementsByTagName('user') as $node) {
+            /** @var DOMElement $node */
             if (
-                $user->getUserName() === $userName &&
-                $user->getUserId() === $userId &&
-                $user->getBank()->getBankCode()->getString() === $bankCode
+                $user->getUserName() === $node->getElementsByTagName('UserName')->item(0)?->nodeValue &&
+                $user->getUserId() === $node->getElementsByTagName('UserId')->item(0)?->nodeValue &&
+                $user->getBank()->getBankCode()->getString() === $node->getElementsByTagName('BankCode')->item(0)?->nodeValue
             ) {
-                return new ExistingUser($user, $uniqueId);
+                return new ExistingUser($user, (int) $node->getElementsByTagName('userUniqueId')->item(0)->nodeValue);
             }
         }
 

@@ -34,13 +34,3 @@ parameters:
 			message: "#^Method AqBanking\\\\ContextXmlRenderer\\:\\:renderSimpleTextElement\\(\\) has parameter \\$valueNodes with generic class DOMNodeList but does not specify its types\\: TNode$#"
 			count: 1
 			path: src/ContextXmlRenderer.php
-
-		-
-			message: "#^Access to an undefined property AqBanking\\\\UserMatcher\\:\\:\\$xPath\\.$#"
-			count: 2
-			path: src/UserMatcher.php
-
-		-
-			message: "#^Method AqBanking\\\\UserMatcher\\:\\:getExistingUser\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/UserMatcher.php
