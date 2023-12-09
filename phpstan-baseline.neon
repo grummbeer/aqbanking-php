@@ -1,17 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Argument of an invalid type DOMDocument supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: src/AccountMatcher.php
-
-		-
-			message: "#^Method AqBanking\\\\AccountMatcher\\:\\:__construct\\(\\) has parameter \\$array with no type specified\\.$#"
-			count: 1
-			path: src/AccountMatcher.php
-
-		-
-			message: "#^Method AqBanking\\\\AccountMatcher\\:\\:getExistingAccount\\(\\) has no return type specified\\.$#"
+			message: "#^Method AqBanking\\\\AccountMatcher\\:\\:__construct\\(\\) has parameter \\$existingAccounts with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/AccountMatcher.php
 
