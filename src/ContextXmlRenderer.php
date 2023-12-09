@@ -113,6 +113,9 @@ class ContextXmlRenderer
         return $balances;
     }
 
+    /**
+     * @param DOMNodeList<DOMNode> $nodes
+     */
     private function renderMultiLineElement(DOMNodeList $nodes): string
     {
         $lines = [];
@@ -157,6 +160,9 @@ class ContextXmlRenderer
         return $this->moneyElementRenderer->render($valueString, $currencyString);
     }
 
+    /**
+     * @param DOMNodeList<DOMNode> $valueNodes
+     */
     private function renderSimpleTextElement(DOMNodeList $valueNodes): string
     {
         return trim($valueNodes->item(0)->nodeValue);

@@ -14,13 +14,3 @@ parameters:
 			message: "#^Method AqBanking\\\\Command\\\\ListAccountsCommand\\:\\:execute\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Command/ListAccountsCommand.php
-
-		-
-			message: "#^Method AqBanking\\\\ContextXmlRenderer\\:\\:renderMultiLineElement\\(\\) has parameter \\$nodes with generic class DOMNodeList but does not specify its types\\: TNode$#"
-			count: 1
-			path: src/ContextXmlRenderer.php
-
-		-
-			message: "#^Method AqBanking\\\\ContextXmlRenderer\\:\\:renderSimpleTextElement\\(\\) has parameter \\$valueNodes with generic class DOMNodeList but does not specify its types\\: TNode$#"
-			count: 1
-			path: src/ContextXmlRenderer.php
