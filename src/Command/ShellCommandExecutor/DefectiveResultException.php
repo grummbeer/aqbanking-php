@@ -17,7 +17,7 @@ class DefectiveResultException extends Exception
         parent::__construct(
             $message .
             " - Command: " . $shellCommand .
-            " - Errors: " . implode(PHP_EOL, $result->getErrors()),
+            " - Errors: " . implode(PHP_EOL, $result?->getErrors()),
             $code,
             $previous
         );
