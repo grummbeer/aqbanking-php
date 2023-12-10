@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PinFile;
+namespace Tests\PinFile;
 
 use AqBanking\Bank;
 use AqBanking\BankCode;
@@ -20,30 +20,51 @@ use PHPUnit\Framework\TestCase;
  */
 class PinFileTest extends TestCase
 {
-    public function testPinFile(): void
+    private static string $userId = '1';
+
+    private static string $bankCode = '50050010';
+
+    /**
+     * @dataProvider samples
+     */
+    public function testPinFile(string $dir, User $user, string $expectedFileName, string $expectedPath): void
     {
-        $userId = '1';
-        $bankCode = '50050010';
-
-        $user = new User(
-            userId: $userId,
-            userName: 'Max Mustermann',
-            bank: new Bank(
-                bankCode: new BankCode($bankCode),
-                hbciUrl: 'https://fints.bank.de/fints',
-                hbciVersion: new HbciVersion('1.2.3'),
-            )
-        );
-
-        $dir = sys_get_temp_dir();
         $sut = new PinFile(
             dir: $dir,
             user: $user
         );
 
-        $expectedFileName = 'pinfile_' . $bankCode . '_' . $userId;
-
         $this->assertSame($expectedFileName, $sut->getFileName());
-        $this->assertSame(implode('/', [$dir, $expectedFileName]), $sut->getPath());
+        $this->assertSame($expectedPath, $sut->getPath());
+    }
+
+    public static function samples(): array
+    {
+        $user = new User(
+            userId: self::$userId,
+            userName: 'Max Mustermann',
+            bank: new Bank(
+                bankCode: new BankCode(self::$bankCode),
+                hbciUrl: 'https://fints.bank.de/fints',
+                hbciVersion: new HbciVersion('1.2.3'),
+            )
+        );
+
+        $expectedFileName = 'pinfile_' . self::$bankCode . '_' . self::$userId;
+
+        return [
+            'trailing slash' => [
+                './',
+                $user,
+                $expectedFileName,
+                './' . $expectedFileName,
+            ],
+            'no trailing slash' => [
+                '/home',
+                $user,
+                $expectedFileName,
+                '/home/' . $expectedFileName,
+            ],
+        ];
     }
 }
