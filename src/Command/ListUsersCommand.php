@@ -20,7 +20,7 @@ class ListUsersCommand extends AbstractCommand
 
         $result = $this->getShellCommandExecutor()->execute($shellCommand);
 
-        if (4 === $result->getReturnVar()) {
+        if (self::RETURN_VAR_NOT_FOUND === $result->getReturnVar()) {
             return null;
         }
 

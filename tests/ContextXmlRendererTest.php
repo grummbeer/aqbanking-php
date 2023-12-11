@@ -15,6 +15,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \AqBanking\ContextXmlRenderer
  * @uses \AqBanking\ContentXmlRenderer\MoneyElementRenderer
+ * @uses \AqBanking\Balance
  */
 class ContextXmlRendererTest extends TestCase
 {
@@ -78,9 +79,22 @@ class ContextXmlRendererTest extends TestCase
         $this->assertEquals($expectedTransactions, $sut->getTransactions());
     }
 
-    /**
-     * @throws Exception
-     */
+    public function testCanRenderBalances()
+    {
+        $fixture = file_get_contents(__DIR__ . '/fixtures/test_context_file_transactions.xml');
+        $domDocument = new \DOMDocument();
+        $domDocument->loadXML($fixture);
+
+        $sut = new ContextXmlRenderer($domDocument);
+
+        $balances = $sut->getBalances();
+
+        $this->assertCount(3, $balances);
+        $this->assertInstanceOf(\DateTime::class, $balances[0]->getDate());
+        $this->assertInstanceOf(Money::class, $balances[0]->getValue());
+        $this->assertSame('temporary', $balances[0]->getType());
+    }
+
     public function testThrowsExceptionIfDataContainsReservedChar()
     {
         $fixture = file_get_contents(__DIR__ . '/fixtures/test_context_file_transactions_with_reserved_char.xml');

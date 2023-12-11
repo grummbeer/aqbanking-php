@@ -8,8 +8,6 @@ use RuntimeException;
 
 class ListAccountsCommand extends AbstractCommand
 {
-    public const RETURN_VAR_NOT_FOUND = 4;
-
     public const BANK = 'bank';
 
     public const NUMBER = 'number';

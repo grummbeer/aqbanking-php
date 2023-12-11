@@ -25,6 +25,6 @@ class PinFile implements PinFileInterface
 
     public function getPath(): string
     {
-        return $this->dir . '/' . $this->getFileName();
+        return rtrim($this->dir, '/') . '/' . $this->getFileName();
     }
 }

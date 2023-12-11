@@ -59,7 +59,7 @@ class ResultAnalyzer
 
     private function resultHasErrors(Result $result): bool
     {
-        if (1 === \count($result->getErrors()) && preg_match('/accepting valid new certificate/', $result->getErrors()[0])) {
+        if (1 === \count($result->getErrors()) && str_contains($result->getErrors()[0], 'accepting valid new certificate')) {
             // When calling getsysid with wrong PIN, we don't get any error message.
             // The only significant aspect of the error is that the output is just one line with
             // "accepting valid new certificate"

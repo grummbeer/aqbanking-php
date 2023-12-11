@@ -121,7 +121,7 @@ class ContextXmlRenderer
         $lines = [];
         foreach ($nodes as $node) {
             $line = trim($node->nodeValue);
-            if (false !== strpos($line, '|')) {
+            if (str_contains($line, '|')) {
                 throw new RuntimeException('Unexpected character');
             }
             $lines[] = $line;
