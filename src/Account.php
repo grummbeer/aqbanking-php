@@ -34,9 +34,9 @@ class Account implements AccountInterface, Arrayable
     public function toArray(): array
     {
         return [
-            'bankCode' => $this->getBankCode()->getString(),
-            'accountNumber' => $this->getAccountNumber(),
-            'accountHolderName' => $this->getAccountHolderName(),
+            'bankCode' => $this->bankCode->getString(),
+            'accountNumber' => $this->accountNumber,
+            'accountHolderName' => $this->accountHolderName,
         ];
     }
 }
