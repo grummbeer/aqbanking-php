@@ -25,10 +25,7 @@ class ShellCommandExecutor
 
         exec($shellCommand . ' 2>' . $tempFile, $output, $returnVar);
 
-        $errorOutput = file($tempFile);
-        $errorOutput = array_map(function ($line) {
-            return rtrim($line, "\r\n");
-        }, $errorOutput);
+        $errorOutput = array_map(fn ($line) => rtrim($line, "\r\n"), file($tempFile));
         unlink($tempFile);
 
         return new Result($output, $errorOutput, $returnVar);
