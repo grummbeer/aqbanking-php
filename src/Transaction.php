@@ -73,19 +73,19 @@ class Transaction implements Arrayable
     public function toArray(): array
     {
         return [
-            'date' => $this->getDate()->format('Y-m-d'),
-            'localAccount' => $this->getLocalAccount()->toArray(),
-            'purpose' => $this->getPurpose(),
-            'remoteAccount' => $this->getRemoteAccount()->toArray(),
-            'type' => $this->getType(),
+            'date' => $this->date->format('Y-m-d'),
+            'localAccount' => $this->localAccount->toArray(),
+            'purpose' => $this->purpose,
+            'remoteAccount' => $this->remoteAccount->toArray(),
+            'type' => $this->type,
             'value' => [
-                'amount' => $this->getValue()->getAmount(),
-                'currency' => $this->getValue()->getCurrency()->getCode(),
+                'amount' => $this->value->getAmount(),
+                'currency' => $this->value->getCurrency()->getCode(),
                 'priceUnit' => 100,
             ],
-            'valutaDate' => $this->getValutaDate()?->format('Y-m-d'),
-            'primaNota' => $this->getPrimaNota(),
-            'customerReference' => $this->getCustomerReference(),
+            'valutaDate' => $this->valutaDate?->format('Y-m-d'),
+            'primaNota' => $this->primaNota,
+            'customerReference' => $this->customerReference,
         ];
     }
 }

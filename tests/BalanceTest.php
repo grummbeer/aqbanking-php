@@ -31,8 +31,8 @@ class BalanceTest extends TestCase
             'type' => 'noted',
             'value' => [
                 'amount' => '10',
-                'priceUnit' => 100,
                 'currency' => 'EUR',
+                'priceUnit' => 100,
             ],
             'date' => $date->format('Y-m-d'),
         ], $sut->toArray());

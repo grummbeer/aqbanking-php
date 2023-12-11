@@ -35,13 +35,13 @@ class Balance implements Arrayable
     public function toArray(): array
     {
         return [
-            'type' => $this->getType(),
+            'type' => $this->type,
             'value' => [
-                'amount' => $this->getValue()->getAmount(),
+                'amount' => $this->value->getAmount(),
+                'currency' => $this->value->getCurrency()->getCode(),
                 'priceUnit' => 100,
-                'currency' => $this->getValue()->getCurrency()->getCode(),
             ],
-            'date' => $this->getDate()->format('Y-m-d'),
+            'date' => $this->date->format('Y-m-d'),
         ];
     }
 }
